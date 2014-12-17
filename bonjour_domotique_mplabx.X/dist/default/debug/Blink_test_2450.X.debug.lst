@@ -1,0 +1,3740 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.32 build 58300 
+                                                                                               Sat Nov 15 17:16:39 2014
+
+Microchip Technology Omniscient Code Generator (Lite mode) build 58300
+     1                           	processor	18F24K50
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	bssBIGRAM,global,class=BIGRAM,space=1,delta=1
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    15                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    17                           	psect	text7,global,reloc=2,class=CODE,delta=1
+    18                           	psect	text8,global,reloc=2,class=CODE,delta=1
+    19                           	psect	text9,global,reloc=2,class=CODE,delta=1
+    20                           	psect	text10,global,reloc=2,class=CODE,delta=1
+    21                           	psect	text11,global,reloc=2,class=CODE,delta=1
+    22                           	psect	text12,global,reloc=2,class=CODE,delta=1
+    23                           	psect	text13,global,reloc=2,class=CODE,delta=1
+    24                           	psect	text14,global,reloc=2,class=CODE,delta=1
+    25                           	psect	text15,global,reloc=2,class=CODE,delta=1
+    26                           	psect	text16,global,reloc=2,class=CODE,delta=1
+    27                           	psect	text17,global,reloc=2,class=CODE,delta=1
+    28                           	psect	text18,global,reloc=2,class=CODE,delta=1
+    29                           	psect	text19,global,reloc=2,class=CODE,delta=1
+    30                           	psect	text20,global,reloc=2,class=CODE,delta=1
+    31                           	psect	text21,global,reloc=2,class=CODE,delta=1
+    32                           	psect	text23,global,reloc=2,class=CODE,delta=1
+    33                           	psect	text24,global,reloc=2,class=CODE,delta=1
+    34                           	psect	text25,global,reloc=2,class=CODE,delta=1
+    35                           	psect	text26,global,reloc=2,class=CODE,delta=1
+    36                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    37                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    38  0000                     _ADCON0bits	set	4034
+    39  0000                     _ANSELBbits	set	3932
+    40  0000                     _ANSELCbits	set	3933
+    41  0000                     _CM1CON0bits	set	3992
+    42  0000                     _INTCON2bits	set	4081
+    43  0000                     _INTCONbits	set	4082
+    44  0000                     _LATBbits	set	3978
+    45  0000                     _OSCCONbits	set	4051
+    46  0000                     _PIE1bits	set	3997
+    47  0000                     _PIR1bits	set	3998
+    48  0000                     _PORTBbits	set	3969
+    49  0000                     _RCONbits	set	4048
+    50  0000                     _RCREG1	set	4014
+    51  0000                     _RCSTA1	set	4011
+    52  0000                     _RCSTA1bits	set	4011
+    53  0000                     _SPBRG1	set	4015
+    54  0000                     _SPBRGH1	set	4016
+    55  0000                     _T0CON	set	4053
+    56  0000                     _T0CONbits	set	4053
+    57  0000                     _TMR0H	set	4055
+    58  0000                     _TMR0L	set	4054
+    59  0000                     _TRISBbits	set	3987
+    60  0000                     _TXREG1	set	4013
+    61  0000                     _TXSTA1	set	4012
+    62  0000                     _TXSTA1bits	set	4012
+    63                           
+    64 ;; *************** function _high_isr *****************
+    65 ;; Defined at:
+    66 ;;		line 11 in file "interrupts.c"
+    67 ;; Parameters:    Size  Location     Type
+    68 ;;		None
+    69 ;; Auto vars:     Size  Location     Type
+    70 ;;		None
+    71 ;; Return value:  Size  Location     Type
+    72 ;;		None               void
+    73 ;; Registers used:
+    74 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+    75 ;; Tracked objects:
+    76 ;;		On entry : 0/0
+    77 ;;		On exit  : 0/0
+    78 ;;		Unchanged: 0/0
+    79 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+    80 ;;      Params:         0       0       0       0       0       0       0       0       0
+    81 ;;      Locals:         0       0       0       0       0       0       0       0       0
+    82 ;;      Temps:         14       0       0       0       0       0       0       0       0
+    83 ;;      Totals:        14       0       0       0       0       0       0       0       0
+    84 ;;Total ram usage:       14 bytes
+    85 ;; Hardware stack levels used:    1
+    86 ;; Hardware stack levels required when called:    1
+    87 ;; This function calls:
+    88 ;;		_CyclicBitBuffer_read
+    89 ;;		_CyclicBitBuffer_write
+    90 ;;		_WriteTimer0
+    91 ;;		i2_CyclicBitBuffer_resetRead
+    92 ;; This function is called by:
+    93 ;;		Interrupt level 2
+    94 ;; This function uses a non-reentrant model
+    95 ;;
+    96                           
+    97 ;; *************** function _low_isr *****************
+    98 ;; Defined at:
+    99 ;;		line 53 in file "interrupts.c"
+   100 ;; Parameters:    Size  Location     Type
+   101 ;;		None
+   102 ;; Auto vars:     Size  Location     Type
+   103 ;;		None
+   104 ;; Return value:  Size  Location     Type
+   105 ;;		None               void
+   106 ;; Registers used:
+   107 ;;		None
+   108 ;; Tracked objects:
+   109 ;;		On entry : 0/0
+   110 ;;		On exit  : 0/0
+   111 ;;		Unchanged: 0/0
+   112 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   113 ;;      Params:         0       0       0       0       0       0       0       0       0
+   114 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   115 ;;      Temps:         14       0       0       0       0       0       0       0       0
+   116 ;;      Totals:        14       0       0       0       0       0       0       0       0
+   117 ;;Total ram usage:       14 bytes
+   118 ;; Hardware stack levels used:    1
+   119 ;; This function calls:
+   120 ;;		Nothing
+   121 ;; This function is called by:
+   122 ;;		Interrupt level 2
+   123 ;; This function uses a non-reentrant model
+   124 ;;
+   125                           
+   126                           	psect	intcode
+   127  000008                     __pintcode:
+   128                           	opt stack 0
+   129                           
+   130                           ; #config settings
+   131  000008                     _high_isr:
+   132                           	opt stack 25
+   133                           
+   134                           ;incstack = 0
+   135  000008  CFFA F006          	movff	pclath,??_high_isr
+   136  00000C  CFFB F007          	movff	pclatu,??_high_isr+1
+   137  000010  CFE9 F008          	movff	fsr0l,??_high_isr+2
+   138  000014  CFEA F009          	movff	fsr0h,??_high_isr+3
+   139  000018  CFE1 F00A          	movff	fsr1l,??_high_isr+4
+   140  00001C  CFE2 F00B          	movff	fsr1h,??_high_isr+5
+   141  000020  CFD9 F00C          	movff	fsr2l,??_high_isr+6
+   142  000024  CFDA F00D          	movff	fsr2h,??_high_isr+7
+   143  000028  CFF3 F00E          	movff	prodl,??_high_isr+8
+   144  00002C  CFF4 F00F          	movff	prodh,??_high_isr+9
+   145  000030  CFF6 F010          	movff	tblptrl,??_high_isr+10
+   146  000034  CFF7 F011          	movff	tblptrh,??_high_isr+11
+   147  000038  CFF8 F012          	movff	tblptru,??_high_isr+12
+   148  00003C  CFF5 F013          	movff	tablat,??_high_isr+13
+   149                           
+   150                           ;interrupts.c: 12: if(INTCONbits.TMR0IF) {
+   151  000040  A4F2               	btfss	intcon,2,c	;volatile
+   152  000042  D054               	goto	i2l212
+   153                           
+   154                           ;interrupts.c: 13: WriteTimer0(0x50);
+   155  000044  0E00               	movlw	0
+   156  000046  6E02               	movwf	WriteTimer0@timer0+1,c
+   157  000048  0E50               	movlw	80
+   158  00004A  6E01               	movwf	WriteTimer0@timer0,c
+   159  00004C  EC28  F003         	call	_WriteTimer0	;wreg free
+   160                           
+   161                           ;interrupts.c: 14: count++;
+   162  000050  4A37               	infsnz	_count,f,c
+   163  000052  2A38               	incf	_count+1,f,c
+   164                           
+   165                           ;interrupts.c: 16: if(CyclicBitBuffer_flags.record) {
+   166  000054  A23F               	btfss	_CyclicBitBuffer_flags,1,c
+   167  000056  D022               	goto	i2l202
+   168                           
+   169                           ;interrupts.c: 17: pinValue = PORTBbits.RB0;
+   170  000058  0E00               	movlw	0
+   171  00005A  B081               	btfsc	3969,0,c	;volatile
+   172  00005C  0E01               	movlw	1
+   173  00005E  6E42               	movwf	_pinValue,c
+   174                           
+   175                           ;interrupts.c: 18: if(oneCount > 1) {
+   176  000060  0E01               	movlw	1
+   177  000062  6441               	cpfsgt	_oneCount,c
+   178  000064  D013               	goto	i2l1261
+   179                           
+   180                           ;interrupts.c: 19: CyclicBitBuffer_write(pinValue);
+   181  000066  C042  F001         	movff	_pinValue,CyclicBitBuffer_write@b
+   182  00006A  6A02               	clrf	CyclicBitBuffer_write@b+1,c
+   183  00006C  EC73  F002         	call	_CyclicBitBuffer_write	;wreg free
+   184                           
+   185                           ;interrupts.c: 20: if(count == ((unsigned short)12296)) {
+   186  000070  5038               	movf	_count+1,w,c
+   187  000072  0A30               	xorlw	48
+   188  000074  0E08               	movlw	8
+   189  000076  B4D8               	btfsc	status,2,c
+   190  000078  1837               	xorwf	_count,w,c
+   191  00007A  A4D8               	btfss	status,2,c
+   192  00007C  D036               	goto	i2l1281
+   193                           
+   194                           ;interrupts.c: 21: (INTCONbits.TMR0IE = 0);
+   195  00007E  9AF2               	bcf	intcon,5,c	;volatile
+   196                           
+   197                           ;interrupts.c: 22: CyclicBitBuffer_flags.record = 0;
+   198  000080  923F               	bcf	_CyclicBitBuffer_flags,1,c
+   199                           
+   200                           ;interrupts.c: 23: count = 0;
+   201  000082  0E00               	movlw	0
+   202  000084  6E38               	movwf	_count+1,c
+   203  000086  0E00               	movlw	0
+   204  000088  6E37               	movwf	_count,c
+   205  00008A  D005               	goto	i2l1265
+   206  00008C                     i2l1261:
+   207                           
+   208                           ;interrupts.c: 27: if(1 == pinValue) {
+   209  00008C  0442               	decf	_pinValue,w,c
+   210  00008E  A4D8               	btfss	status,2,c
+   211  000090  D002               	goto	i2l1265
+   212                           
+   213                           ;interrupts.c: 28: oneCount++;
+   214  000092  2A41               	incf	_oneCount,f,c
+   215                           
+   216                           ;interrupts.c: 29: } else {
+   217  000094  D02A               	goto	i2l1281
+   218  000096                     i2l1265:
+   219                           
+   220                           ;interrupts.c: 30: oneCount = 0;
+   221  000096  0E00               	movlw	0
+   222  000098  6E41               	movwf	_oneCount,c
+   223  00009A  D027               	goto	i2l1281
+   224  00009C                     i2l202:
+   225  00009C  A43F               	btfss	_CyclicBitBuffer_flags,2,c
+   226  00009E  D025               	goto	i2l1281
+   227                           
+   228                           ;interrupts.c: 36: LATBbits.LATB3 = CyclicBitBuffer_read();
+   229  0000A0  EC4C  F002         	call	_CyclicBitBuffer_read	;wreg free
+   230  0000A4  4601               	rlncf	?_CyclicBitBuffer_read,f,c
+   231  0000A6  4601               	rlncf	?_CyclicBitBuffer_read,f,c
+   232  0000A8  4601               	rlncf	?_CyclicBitBuffer_read,f,c
+   233  0000AA  508A               	movf	3978,w,c	;volatile
+   234  0000AC  1801               	xorwf	?_CyclicBitBuffer_read,w,c
+   235  0000AE  0BF7               	andlw	-9
+   236  0000B0  1801               	xorwf	?_CyclicBitBuffer_read,w,c
+   237  0000B2  6E8A               	movwf	3978,c	;volatile
+   238                           
+   239                           ;interrupts.c: 37: if(count == (unsigned short)((unsigned short)12296)) {
+   240  0000B4  5038               	movf	_count+1,w,c
+   241  0000B6  0A30               	xorlw	48
+   242  0000B8  0E08               	movlw	8
+   243  0000BA  B4D8               	btfsc	status,2,c
+   244  0000BC  1837               	xorwf	_count,w,c
+   245  0000BE  A4D8               	btfss	status,2,c
+   246  0000C0  D014               	goto	i2l1281
+   247                           
+   248                           ;interrupts.c: 38: sendTime++;
+   249  0000C2  4A3B               	infsnz	_sendTime,f,c
+   250  0000C4  2A3C               	incf	_sendTime+1,f,c
+   251                           
+   252                           ;interrupts.c: 39: if(sendTime > 3) {
+   253  0000C6  0E04               	movlw	4
+   254  0000C8  5C3B               	subwf	_sendTime,w,c
+   255  0000CA  0E00               	movlw	0
+   256  0000CC  583C               	subwfb	_sendTime+1,w,c
+   257  0000CE  A0D8               	btfss	status,0,c
+   258  0000D0  D006               	goto	i2l211
+   259                           
+   260                           ;interrupts.c: 40: (INTCONbits.TMR0IE = 0);
+   261  0000D2  9AF2               	bcf	intcon,5,c	;volatile
+   262                           
+   263                           ;interrupts.c: 41: CyclicBitBuffer_flags.transmit = 0;
+   264  0000D4  943F               	bcf	_CyclicBitBuffer_flags,2,c
+   265                           
+   266                           ;interrupts.c: 42: sendTime = 0;
+   267  0000D6  0E00               	movlw	0
+   268  0000D8  6E3C               	movwf	_sendTime+1,c
+   269  0000DA  0E00               	movlw	0
+   270  0000DC  6E3B               	movwf	_sendTime,c
+   271  0000DE                     i2l211:
+   272                           
+   273                           ;interrupts.c: 43: }
+   274                           ;interrupts.c: 44: count = 0;
+   275  0000DE  0E00               	movlw	0
+   276  0000E0  6E38               	movwf	_count+1,c
+   277  0000E2  0E00               	movlw	0
+   278  0000E4  6E37               	movwf	_count,c
+   279                           
+   280                           ;interrupts.c: 45: CyclicBitBuffer_resetRead();
+   281  0000E6  EC5E  F003         	call	i2_CyclicBitBuffer_resetRead	;wreg free
+   282  0000EA                     i2l1281:
+   283                           
+   284                           ;interrupts.c: 46: }
+   285                           ;interrupts.c: 47: }
+   286                           ;interrupts.c: 48: INTCONbits.TMR0IF = 0;
+   287  0000EA  94F2               	bcf	intcon,2,c	;volatile
+   288  0000EC                     i2l212:
+   289  0000EC  C013  FFF5         	movff	??_high_isr+13,tablat
+   290  0000F0  C012  FFF8         	movff	??_high_isr+12,tblptru
+   291  0000F4  C011  FFF7         	movff	??_high_isr+11,tblptrh
+   292  0000F8  C010  FFF6         	movff	??_high_isr+10,tblptrl
+   293  0000FC  C00F  FFF4         	movff	??_high_isr+9,prodh
+   294  000100  C00E  FFF3         	movff	??_high_isr+8,prodl
+   295  000104  C00D  FFDA         	movff	??_high_isr+7,fsr2h
+   296  000108  C00C  FFD9         	movff	??_high_isr+6,fsr2l
+   297  00010C  C00B  FFE2         	movff	??_high_isr+5,fsr1h
+   298  000110  C00A  FFE1         	movff	??_high_isr+4,fsr1l
+   299  000114  C009  FFEA         	movff	??_high_isr+3,fsr0h
+   300  000118  C008  FFE9         	movff	??_high_isr+2,fsr0l
+   301  00011C  C007  FFFB         	movff	??_high_isr+1,pclatu
+   302  000120  C006  FFFA         	movff	??_high_isr,pclath
+   303  000124  0011               	retfie		f
+   304  000126                     __end_of_high_isr:
+   305                           	opt stack 0
+   306  000126                     _low_isr:
+   307                           	opt stack 26
+   308                           
+   309                           ;incstack = 0
+   310  000126  CFFA F014          	movff	pclath,??_low_isr
+   311  00012A  CFFB F015          	movff	pclatu,??_low_isr+1
+   312  00012E  CFE9 F016          	movff	fsr0l,??_low_isr+2
+   313  000132  CFEA F017          	movff	fsr0h,??_low_isr+3
+   314  000136  CFE1 F018          	movff	fsr1l,??_low_isr+4
+   315  00013A  CFE2 F019          	movff	fsr1h,??_low_isr+5
+   316  00013E  CFD9 F01A          	movff	fsr2l,??_low_isr+6
+   317  000142  CFDA F01B          	movff	fsr2h,??_low_isr+7
+   318  000146  CFF3 F01C          	movff	prodl,??_low_isr+8
+   319  00014A  CFF4 F01D          	movff	prodh,??_low_isr+9
+   320  00014E  CFF6 F01E          	movff	tblptrl,??_low_isr+10
+   321  000152  CFF7 F01F          	movff	tblptrh,??_low_isr+11
+   322  000156  CFF8 F020          	movff	tblptru,??_low_isr+12
+   323  00015A  CFF5 F021          	movff	tablat,??_low_isr+13
+   324  00015E  C021  FFF5         	movff	??_low_isr+13,tablat
+   325  000162  C020  FFF8         	movff	??_low_isr+12,tblptru
+   326  000166  C01F  FFF7         	movff	??_low_isr+11,tblptrh
+   327  00016A  C01E  FFF6         	movff	??_low_isr+10,tblptrl
+   328  00016E  C01D  FFF4         	movff	??_low_isr+9,prodh
+   329  000172  C01C  FFF3         	movff	??_low_isr+8,prodl
+   330  000176  C01B  FFDA         	movff	??_low_isr+7,fsr2h
+   331  00017A  C01A  FFD9         	movff	??_low_isr+6,fsr2l
+   332  00017E  C019  FFE2         	movff	??_low_isr+5,fsr1h
+   333  000182  C018  FFE1         	movff	??_low_isr+4,fsr1l
+   334  000186  C017  FFEA         	movff	??_low_isr+3,fsr0h
+   335  00018A  C016  FFE9         	movff	??_low_isr+2,fsr0l
+   336  00018E  C015  FFFB         	movff	??_low_isr+1,pclatu
+   337  000192  C014  FFFA         	movff	??_low_isr,pclath
+   338  000196  0011               	retfie		f
+   339  000198                     __end_of_low_isr:
+   340                           	opt stack 0
+   341  0000                     pclatu	equ	0xFFB
+   342                           pclath	equ	0xFFA
+   343                           tblptru	equ	0xFF8
+   344                           tblptrh	equ	0xFF7
+   345                           tblptrl	equ	0xFF6
+   346                           tablat	equ	0xFF5
+   347                           prodh	equ	0xFF4
+   348                           prodl	equ	0xFF3
+   349                           intcon	equ	0xFF2
+   350                           fsr0h	equ	0xFEA
+   351                           fsr0l	equ	0xFE9
+   352                           fsr1h	equ	0xFE2
+   353                           fsr1l	equ	0xFE1
+   354                           fsr2h	equ	0xFDA
+   355                           fsr2l	equ	0xFD9
+   356                           status	equ	0xFD8
+   357                           
+   358                           	psect	cinit
+   359  0005BA                     __pcinit:
+   360                           	opt stack 0
+   361  0005BA                     start_initialization:
+   362                           	opt stack 0
+   363  0005BA                     __initialization:
+   364                           	opt stack 0
+   365                           
+   366                           ; Clear objects allocated to BIGRAM (1537 bytes)
+   367  0005BA  EE01  F0FF         	lfsr	0,__pbssBIGRAM
+   368  0005BE  EE16 F001          	lfsr	1,1537
+   369  0005C2                     clear_0:
+   370  0005C2  6AEE               	clrf	postinc0,c
+   371  0005C4  50E5               	movf	postdec1,w,c
+   372  0005C6  50E1               	movf	fsr1l,w,c
+   373  0005C8  E1FC               	bnz	clear_0
+   374  0005CA  50E2               	movf	fsr1h,w,c
+   375  0005CC  E1FA               	bnz	clear_0
+   376                           
+   377                           ; Clear objects allocated to COMRAM (14 bytes)
+   378  0005CE  EE00  F037         	lfsr	0,__pbssCOMRAM
+   379  0005D2  0E0E               	movlw	14
+   380  0005D4                     clear_1:
+   381  0005D4  6AEE               	clrf	postinc0,c
+   382  0005D6  06E8               	decf	wreg,f,c
+   383  0005D8  E1FD               	bnz	clear_1
+   384  0005DA                     end_of_initialization:
+   385                           	opt stack 0
+   386  0005DA                     __end_of__initialization:
+   387                           	opt stack 0
+   388  0005DA  0100               	movlb	0
+   389  0005DC  EF59  F001         	goto	_main	;jump to C main() function
+   390                           pclatu	equ	0xFFB
+   391                           pclath	equ	0xFFA
+   392                           tblptru	equ	0xFF8
+   393                           tblptrh	equ	0xFF7
+   394                           tblptrl	equ	0xFF6
+   395                           tablat	equ	0xFF5
+   396                           prodh	equ	0xFF4
+   397                           prodl	equ	0xFF3
+   398                           intcon	equ	0xFF2
+   399                           postinc0	equ	0xFEE
+   400                           fsr0h	equ	0xFEA
+   401                           fsr0l	equ	0xFE9
+   402                           wreg	equ	0xFE8
+   403                           postdec1	equ	0xFE5
+   404                           fsr1h	equ	0xFE2
+   405                           fsr1l	equ	0xFE1
+   406                           fsr2h	equ	0xFDA
+   407                           fsr2l	equ	0xFD9
+   408                           status	equ	0xFD8
+   409                           
+   410                           	psect	bssCOMRAM
+   411  000037                     __pbssCOMRAM:
+   412                           	opt stack 0
+   413  000037                     _count:
+   414                           	opt stack 0
+   415  000037                     	ds	2
+   416  000039                     _readByteIndex:
+   417                           	opt stack 0
+   418  000039                     	ds	2
+   419  00003B                     _sendTime:
+   420                           	opt stack 0
+   421  00003B                     	ds	2
+   422  00003D                     _writeByteIndex:
+   423                           	opt stack 0
+   424  00003D                     	ds	2
+   425  00003F                     _CyclicBitBuffer_flags:
+   426                           	opt stack 0
+   427  00003F                     	ds	1
+   428  000040                     _USART1_Status:
+   429                           	opt stack 0
+   430  000040                     	ds	1
+   431  000041                     _oneCount:
+   432                           	opt stack 0
+   433  000041                     	ds	1
+   434  000042                     _pinValue:
+   435                           	opt stack 0
+   436  000042                     	ds	1
+   437  000043                     _readBitIndex:
+   438                           	opt stack 0
+   439  000043                     	ds	1
+   440  000044                     _writeBitIndex:
+   441                           	opt stack 0
+   442  000044                     	ds	1
+   443                           pclatu	equ	0xFFB
+   444                           pclath	equ	0xFFA
+   445                           tblptru	equ	0xFF8
+   446                           tblptrh	equ	0xFF7
+   447                           tblptrl	equ	0xFF6
+   448                           tablat	equ	0xFF5
+   449                           prodh	equ	0xFF4
+   450                           prodl	equ	0xFF3
+   451                           intcon	equ	0xFF2
+   452                           postinc0	equ	0xFEE
+   453                           fsr0h	equ	0xFEA
+   454                           fsr0l	equ	0xFE9
+   455                           wreg	equ	0xFE8
+   456                           postdec1	equ	0xFE5
+   457                           fsr1h	equ	0xFE2
+   458                           fsr1l	equ	0xFE1
+   459                           fsr2h	equ	0xFDA
+   460                           fsr2l	equ	0xFD9
+   461                           status	equ	0xFD8
+   462                           
+   463                           	psect	bssBIGRAM
+   464  0001FF                     __pbssBIGRAM:
+   465                           	opt stack 0
+   466  0001FF                     _CyclicBitBuffer_buffer:
+   467                           	opt stack 0
+   468  0001FF                     	ds	1537
+   469                           pclatu	equ	0xFFB
+   470                           pclath	equ	0xFFA
+   471                           tblptru	equ	0xFF8
+   472                           tblptrh	equ	0xFF7
+   473                           tblptrl	equ	0xFF6
+   474                           tablat	equ	0xFF5
+   475                           prodh	equ	0xFF4
+   476                           prodl	equ	0xFF3
+   477                           intcon	equ	0xFF2
+   478                           postinc0	equ	0xFEE
+   479                           fsr0h	equ	0xFEA
+   480                           fsr0l	equ	0xFE9
+   481                           wreg	equ	0xFE8
+   482                           postdec1	equ	0xFE5
+   483                           fsr1h	equ	0xFE2
+   484                           fsr1l	equ	0xFE1
+   485                           fsr2h	equ	0xFDA
+   486                           fsr2l	equ	0xFD9
+   487                           status	equ	0xFD8
+   488                           
+   489                           	psect	cstackCOMRAM
+   490  000001                     __pcstackCOMRAM:
+   491                           	opt stack 0
+   492  000001                     ?_CyclicBitBuffer_read:
+   493                           	opt stack 0
+   494  000001                     CyclicBitBuffer_write@b:
+   495                           	opt stack 0
+   496  000001                     WriteTimer0@timer0:
+   497                           	opt stack 0
+   498                           
+   499                           ; 2 bytes @ 0x0
+   500  000001                     	ds	2
+   501  000003                     ??_CyclicBitBuffer_read:
+   502  000003                     ??_CyclicBitBuffer_write:
+   503  000003                     WriteTimer0@timer:
+   504                           	opt stack 0
+   505                           
+   506                           ; 2 bytes @ 0x2
+   507  000003                     	ds	1
+   508  000004                     CyclicBitBuffer_read@ret:
+   509                           	opt stack 0
+   510                           
+   511                           ; 2 bytes @ 0x3
+   512  000004                     	ds	2
+   513  000006                     ??_high_isr:
+   514                           
+   515                           ; 0 bytes @ 0x5
+   516  000006                     	ds	14
+   517  000014                     ??_low_isr:
+   518                           
+   519                           ; 0 bytes @ 0x13
+   520  000014                     	ds	14
+   521  000022                     ?_CyclicBitBuffer_getBuffer:
+   522                           	opt stack 0
+   523  000022                     OpenTimer0@config:
+   524                           	opt stack 0
+   525  000022                     Read1USART@data:
+   526                           	opt stack 0
+   527  000022                     Write1USART@data:
+   528                           	opt stack 0
+   529  000022                     Delay100TCYx@unit:
+   530                           	opt stack 0
+   531  000022                     Delay1KTCYx@unit:
+   532                           	opt stack 0
+   533  000022                     Open1USART@spbrg:
+   534                           	opt stack 0
+   535                           
+   536                           ; 2 bytes @ 0x21
+   537  000022                     	ds	1
+   538  000023                     ?_Serial_readFrame:
+   539                           	opt stack 0
+   540  000023                     Serial_readFrame@frame:
+   541                           	opt stack 0
+   542  000023                     Serial_sendFrame@frame:
+   543                           	opt stack 0
+   544                           
+   545                           ; 2 bytes @ 0x22
+   546  000023                     	ds	1
+   547  000024                     ??_Open1USART:
+   548  000024                     ?_RF433_receive:
+   549                           	opt stack 0
+   550  000024                     RF433_receive@bufferLength:
+   551                           	opt stack 0
+   552                           
+   553                           ; 2 bytes @ 0x23
+   554  000024                     	ds	1
+   555  000025                     ??_Serial_readFrame:
+   556  000025                     ??_Serial_sendFrame:
+   557                           
+   558                           ; 0 bytes @ 0x24
+   559  000025                     	ds	1
+   560  000026                     
+   561                           ; 0 bytes @ 0x25
+   562  000026                     	ds	1
+   563  000027                     Open1USART@config:
+   564                           	opt stack 0
+   565  000027                     Serial_readFrame@i:
+   566                           	opt stack 0
+   567  000027                     Serial_sendFrame@i:
+   568                           	opt stack 0
+   569                           
+   570                           ; 2 bytes @ 0x26
+   571  000027                     	ds	1
+   572  000028                     
+   573                           ; 0 bytes @ 0x27
+   574  000028                     	ds	1
+   575  000029                     Serial_readFrame@p:
+   576                           	opt stack 0
+   577  000029                     Serial_sendFrame@p:
+   578                           	opt stack 0
+   579                           
+   580                           ; 2 bytes @ 0x28
+   581  000029                     	ds	2
+   582  00002B                     
+   583                           ; 2 bytes @ 0x2A
+   584  00002B                     	ds	2
+   585  00002D                     
+   586                           ; 3 bytes @ 0x2C
+   587  00002D                     	ds	3
+   588  000030                     main@x:
+   589                           	opt stack 0
+   590                           
+   591                           ; 2 bytes @ 0x2F
+   592  000030                     	ds	2
+   593  000032                     main@frame:
+   594                           	opt stack 0
+   595                           
+   596                           ; 5 bytes @ 0x31
+   597  000032                     	ds	5
+   598                           pclatu	equ	0xFFB
+   599                           pclath	equ	0xFFA
+   600                           tblptru	equ	0xFF8
+   601                           tblptrh	equ	0xFF7
+   602                           tblptrl	equ	0xFF6
+   603                           tablat	equ	0xFF5
+   604                           prodh	equ	0xFF4
+   605                           prodl	equ	0xFF3
+   606                           intcon	equ	0xFF2
+   607                           postinc0	equ	0xFEE
+   608                           fsr0h	equ	0xFEA
+   609                           fsr0l	equ	0xFE9
+   610                           wreg	equ	0xFE8
+   611                           postdec1	equ	0xFE5
+   612                           fsr1h	equ	0xFE2
+   613                           fsr1l	equ	0xFE1
+   614                           fsr2h	equ	0xFDA
+   615                           fsr2l	equ	0xFD9
+   616                           status	equ	0xFD8
+   617                           
+   618 ;;
+   619 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   620 ;;
+   621 ;; *************** function _main *****************
+   622 ;; Defined at:
+   623 ;;		line 87 in file "main.c"
+   624 ;; Parameters:    Size  Location     Type
+   625 ;;  argc            2   42[COMRAM] int 
+   626 ;;  argv            3   44[COMRAM] PTR PTR unsigned char 
+   627 ;; Auto vars:     Size  Location     Type
+   628 ;;  frame           5   49[COMRAM] struct serial_frame
+   629 ;;  x               2   47[COMRAM] unsigned short 
+   630 ;; Return value:  Size  Location     Type
+   631 ;;                  2   42[COMRAM] int 
+   632 ;; Registers used:
+   633 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+   634 ;; Tracked objects:
+   635 ;;		On entry : 0/0
+   636 ;;		On exit  : 0/0
+   637 ;;		Unchanged: 0/0
+   638 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   639 ;;      Params:         5       0       0       0       0       0       0       0       0
+   640 ;;      Locals:         7       0       0       0       0       0       0       0       0
+   641 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   642 ;;      Totals:        12       0       0       0       0       0       0       0       0
+   643 ;;Total ram usage:       12 bytes
+   644 ;; Hardware stack levels required when called:    5
+   645 ;; This function calls:
+   646 ;;		_CyclicBitBuffer_clearEvent
+   647 ;;		_CyclicBitBuffer_getBuffer
+   648 ;;		_CyclicBitBuffer_reset
+   649 ;;		_RF433_init
+   650 ;;		_RF433_receive
+   651 ;;		_RF433_transmit
+   652 ;;		_Serial_configSerialPort
+   653 ;;		_Serial_readFrame
+   654 ;;		_Serial_sendFrame
+   655 ;;		_configClock
+   656 ;;		_configInterruptPriority
+   657 ;;		_configPorts
+   658 ;;		_configTimer
+   659 ;; This function is called by:
+   660 ;;		Startup code after reset
+   661 ;; This function uses a non-reentrant model
+   662 ;;
+   663                           
+   664                           	psect	text0
+   665  0002B2                     __ptext0:
+   666                           	opt stack 0
+   667  0002B2                     _main:
+   668                           	opt stack 25
+   669                           
+   670                           ;main.c: 88: unsigned short x = 0;
+   671                           
+   672                           ;incstack = 0
+   673  0002B2  0E00               	movlw	0
+   674  0002B4  6E31               	movwf	main@x+1,c
+   675  0002B6  0E00               	movlw	0
+   676  0002B8  6E30               	movwf	main@x,c
+   677                           
+   678                           ;main.c: 89: SerialFrame frame;
+   679                           ;main.c: 92: configClock();
+   680  0002BA  EC77  F003         	call	_configClock	;wreg free
+   681                           
+   682                           ;main.c: 93: configPorts();
+   683  0002BE  EC00  F003         	call	_configPorts	;wreg free
+   684                           
+   685                           ;main.c: 94: configInterruptPriority();
+   686  0002C2  EC65  F003         	call	_configInterruptPriority	;wreg free
+   687                           
+   688                           ;main.c: 95: configTimer();
+   689  0002C6  EC49  F003         	call	_configTimer	;wreg free
+   690                           
+   691                           ;main.c: 98: Serial_configSerialPort();
+   692  0002CA  EC31  F003         	call	_Serial_configSerialPort	;wreg free
+   693                           
+   694                           ;main.c: 101: CyclicBitBuffer_reset();
+   695  0002CE  EC6A  F003         	call	_CyclicBitBuffer_reset	;wreg free
+   696                           
+   697                           ;main.c: 103: RF433_init();
+   698  0002D2  ECC7  F002         	call	_RF433_init	;wreg free
+   699                           
+   700                           ;main.c: 106: frame.content = CyclicBitBuffer_getBuffer();
+   701  0002D6  EC6F  F003         	call	_CyclicBitBuffer_getBuffer	;wreg free
+   702  0002DA  C022  F035         	movff	?_CyclicBitBuffer_getBuffer,main@frame+3
+   703  0002DE  C023  F036         	movff	?_CyclicBitBuffer_getBuffer+1,main@frame+4
+   704  0002E2  D006               	goto	l1211
+   705  0002E4                     l1205:
+   706                           
+   707                           ;main.c: 112: x++;
+   708  0002E4  4A30               	infsnz	main@x,f,c
+   709  0002E6  2A31               	incf	main@x+1,f,c
+   710                           
+   711                           ;main.c: 114: if(0 == x) {
+   712  0002E8  5031               	movf	main@x+1,w,c
+   713  0002EA  1030               	iorwf	main@x,w,c
+   714  0002EC  B4D8               	btfsc	status,2,c
+   715                           
+   716                           ;main.c: 115: LATBbits.LATB4 ^= 1;
+   717  0002EE  788A               	btg	3978,4,c	;volatile
+   718  0002F0                     l1211:
+   719  0002F0  0E00               	movlw	high main@frame
+   720  0002F2  6E24               	movwf	Serial_readFrame@frame+1,c
+   721  0002F4  0E32               	movlw	low main@frame
+   722  0002F6  6E23               	movwf	Serial_readFrame@frame,c
+   723  0002F8  ECCE  F000         	call	_Serial_readFrame	;wreg free
+   724  0002FC  5024               	movf	?_Serial_readFrame+1,w,c
+   725  0002FE  1023               	iorwf	?_Serial_readFrame,w,c
+   726  000300  B4D8               	btfsc	status,2,c
+   727  000302  D7F0               	goto	l1205
+   728                           
+   729                           ;main.c: 116: }
+   730                           ;main.c: 117: }
+   731                           ;main.c: 119: (INTCONbits.TMR0IE = 0);
+   732  000304  9AF2               	bcf	intcon,5,c	;volatile
+   733                           
+   734                           ;main.c: 120: CyclicBitBuffer_clearEvent();
+   735  000306  EC74  F003         	call	_CyclicBitBuffer_clearEvent	;wreg free
+   736                           
+   737                           ;main.c: 124: if(0x01 == frame.header) {
+   738  00030A  0432               	decf	main@frame,w,c
+   739  00030C  A4D8               	btfss	status,2,c
+   740  00030E  D013               	goto	l1223
+   741                           
+   742                           ;main.c: 126: frame.header = 0x01;
+   743  000310  0E01               	movlw	1
+   744  000312  6E32               	movwf	main@frame,c
+   745                           
+   746                           ;main.c: 127: frame.content = RF433_receive(&(frame.lenght));
+   747  000314  0E00               	movlw	high (main@frame+1)
+   748  000316  6E25               	movwf	RF433_receive@bufferLength+1,c
+   749  000318  0E33               	movlw	low (main@frame+1)
+   750  00031A  6E24               	movwf	RF433_receive@bufferLength,c
+   751  00031C  ECB1  F002         	call	_RF433_receive	;wreg free
+   752  000320  C024  F035         	movff	?_RF433_receive,main@frame+3
+   753  000324  C025  F036         	movff	?_RF433_receive+1,main@frame+4
+   754                           
+   755                           ;main.c: 128: Serial_sendFrame(&frame);
+   756  000328  0E00               	movlw	high main@frame
+   757  00032A  6E24               	movwf	Serial_sendFrame@frame+1,c
+   758  00032C  0E32               	movlw	low main@frame
+   759  00032E  6E23               	movwf	Serial_sendFrame@frame,c
+   760  000330  ECC8  F001         	call	_Serial_sendFrame	;wreg free
+   761                           
+   762                           ;main.c: 129: } else if(0x02 == frame.header) {
+   763  000334  D7DD               	goto	l1211
+   764  000336                     l1223:
+   765  000336  5032               	movf	main@frame,w,c
+   766  000338  0A02               	xorlw	2
+   767  00033A  A4D8               	btfss	status,2,c
+   768  00033C  D00F               	goto	l1233
+   769                           
+   770                           ;main.c: 130: RF433_transmit();
+   771  00033E  EC98  F002         	call	_RF433_transmit	;wreg free
+   772                           
+   773                           ;main.c: 131: frame.header = 0x02;
+   774  000342  0E02               	movlw	2
+   775  000344  6E32               	movwf	main@frame,c
+   776                           
+   777                           ;main.c: 132: frame.lenght = 0;
+   778  000346  0E00               	movlw	0
+   779  000348  6E34               	movwf	main@frame+2,c
+   780  00034A  0E00               	movlw	0
+   781  00034C  6E33               	movwf	main@frame+1,c
+   782                           
+   783                           ;main.c: 133: Serial_sendFrame(&frame);
+   784  00034E  0E00               	movlw	high main@frame
+   785  000350  6E24               	movwf	Serial_sendFrame@frame+1,c
+   786  000352  0E32               	movlw	low main@frame
+   787  000354  6E23               	movwf	Serial_sendFrame@frame,c
+   788  000356  ECC8  F001         	call	_Serial_sendFrame	;wreg free
+   789                           
+   790                           ;main.c: 135: } else if(0x03 == frame.header) {
+   791  00035A  D7CA               	goto	l1211
+   792  00035C                     l1233:
+   793  00035C  5032               	movf	main@frame,w,c
+   794  00035E  0A03               	xorlw	3
+   795  000360  A4D8               	btfss	status,2,c
+   796  000362  D009               	goto	l1239
+   797                           
+   798                           ;main.c: 136: frame.header = 0x04;
+   799  000364  0E04               	movlw	4
+   800  000366  6E32               	movwf	main@frame,c
+   801                           
+   802                           ;main.c: 137: Serial_sendFrame(&frame);
+   803  000368  0E00               	movlw	high main@frame
+   804  00036A  6E24               	movwf	Serial_sendFrame@frame+1,c
+   805  00036C  0E32               	movlw	low main@frame
+   806  00036E  6E23               	movwf	Serial_sendFrame@frame,c
+   807  000370  ECC8  F001         	call	_Serial_sendFrame	;wreg free
+   808                           
+   809                           ;main.c: 138: } else {
+   810  000374  D7BD               	goto	l1211
+   811  000376                     l1239:
+   812                           
+   813                           ;main.c: 139: frame.header = 0xf0;
+   814  000376  0EF0               	movlw	240
+   815  000378  6E32               	movwf	main@frame,c
+   816                           
+   817                           ;main.c: 140: frame.lenght = 0;
+   818  00037A  0E00               	movlw	0
+   819  00037C  6E34               	movwf	main@frame+2,c
+   820  00037E  0E00               	movlw	0
+   821  000380  6E33               	movwf	main@frame+1,c
+   822                           
+   823                           ;main.c: 141: Serial_sendFrame(&frame);
+   824  000382  0E00               	movlw	high main@frame
+   825  000384  6E24               	movwf	Serial_sendFrame@frame+1,c
+   826  000386  0E32               	movlw	low main@frame
+   827  000388  6E23               	movwf	Serial_sendFrame@frame,c
+   828  00038A  ECC8  F001         	call	_Serial_sendFrame	;wreg free
+   829  00038E  D7B0               	goto	l1211
+   830  000390                     __end_of_main:
+   831                           	opt stack 0
+   832                           pclatu	equ	0xFFB
+   833                           pclath	equ	0xFFA
+   834                           tblptru	equ	0xFF8
+   835                           tblptrh	equ	0xFF7
+   836                           tblptrl	equ	0xFF6
+   837                           tablat	equ	0xFF5
+   838                           prodh	equ	0xFF4
+   839                           prodl	equ	0xFF3
+   840                           intcon	equ	0xFF2
+   841                           postinc0	equ	0xFEE
+   842                           fsr0h	equ	0xFEA
+   843                           fsr0l	equ	0xFE9
+   844                           wreg	equ	0xFE8
+   845                           postdec1	equ	0xFE5
+   846                           fsr1h	equ	0xFE2
+   847                           fsr1l	equ	0xFE1
+   848                           fsr2h	equ	0xFDA
+   849                           fsr2l	equ	0xFD9
+   850                           status	equ	0xFD8
+   851                           
+   852 ;; *************** function _configTimer *****************
+   853 ;; Defined at:
+   854 ;;		line 7 in file "Config.c"
+   855 ;; Parameters:    Size  Location     Type
+   856 ;;		None
+   857 ;; Auto vars:     Size  Location     Type
+   858 ;;		None
+   859 ;; Return value:  Size  Location     Type
+   860 ;;		None               void
+   861 ;; Registers used:
+   862 ;;		wreg, status,2, status,0, cstack
+   863 ;; Tracked objects:
+   864 ;;		On entry : 0/0
+   865 ;;		On exit  : 0/0
+   866 ;;		Unchanged: 0/0
+   867 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   868 ;;      Params:         0       0       0       0       0       0       0       0       0
+   869 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   870 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   871 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   872 ;;Total ram usage:        0 bytes
+   873 ;; Hardware stack levels used:    1
+   874 ;; Hardware stack levels required when called:    3
+   875 ;; This function calls:
+   876 ;;		_OpenTimer0
+   877 ;; This function is called by:
+   878 ;;		_main
+   879 ;; This function uses a non-reentrant model
+   880 ;;
+   881                           
+   882                           	psect	text1
+   883  000692                     __ptext1:
+   884                           	opt stack 0
+   885  000692                     _configTimer:
+   886                           	opt stack 26
+   887                           
+   888                           ;Config.c: 8: (INTCONbits.TMR0IE = 0);
+   889                           
+   890                           ;incstack = 0
+   891  000692  9AF2               	bcf	intcon,5,c	;volatile
+   892                           
+   893                           ;Config.c: 9: INTCONbits.TMR0IF = 0;
+   894  000694  94F2               	bcf	intcon,2,c	;volatile
+   895                           
+   896                           ;Config.c: 10: OpenTimer0(0b01111111 & 0b11111111 & 0b11011111 & 0b11111111 & 0b11101111
+      +                          );
+   897  000696  0E4F               	movlw	79
+   898  000698  ECF0  F002         	call	_OpenTimer0
+   899                           
+   900                           ;Config.c: 11: INTCONbits.TMR0IF = 0;
+   901  00069C  94F2               	bcf	intcon,2,c	;volatile
+   902  00069E  0012               	return	
+   903  0006A0                     __end_of_configTimer:
+   904                           	opt stack 0
+   905                           pclatu	equ	0xFFB
+   906                           pclath	equ	0xFFA
+   907                           tblptru	equ	0xFF8
+   908                           tblptrh	equ	0xFF7
+   909                           tblptrl	equ	0xFF6
+   910                           tablat	equ	0xFF5
+   911                           prodh	equ	0xFF4
+   912                           prodl	equ	0xFF3
+   913                           intcon	equ	0xFF2
+   914                           postinc0	equ	0xFEE
+   915                           fsr0h	equ	0xFEA
+   916                           fsr0l	equ	0xFE9
+   917                           wreg	equ	0xFE8
+   918                           postdec1	equ	0xFE5
+   919                           fsr1h	equ	0xFE2
+   920                           fsr1l	equ	0xFE1
+   921                           fsr2h	equ	0xFDA
+   922                           fsr2l	equ	0xFD9
+   923                           status	equ	0xFD8
+   924                           
+   925 ;; *************** function _OpenTimer0 *****************
+   926 ;; Defined at:
+   927 ;;		line 18 in file "/opt/microchip/xc8/v1.32/sources/pic18/plib/Timers/t0open.c"
+   928 ;; Parameters:    Size  Location     Type
+   929 ;;  config          1    wreg     unsigned char 
+   930 ;; Auto vars:     Size  Location     Type
+   931 ;;  config          1   33[COMRAM] unsigned char 
+   932 ;; Return value:  Size  Location     Type
+   933 ;;		None               void
+   934 ;; Registers used:
+   935 ;;		wreg, status,2, status,0
+   936 ;; Tracked objects:
+   937 ;;		On entry : 0/0
+   938 ;;		On exit  : 0/0
+   939 ;;		Unchanged: 0/0
+   940 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   941 ;;      Params:         0       0       0       0       0       0       0       0       0
+   942 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   943 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   944 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   945 ;;Total ram usage:        1 bytes
+   946 ;; Hardware stack levels used:    1
+   947 ;; Hardware stack levels required when called:    2
+   948 ;; This function calls:
+   949 ;;		Nothing
+   950 ;; This function is called by:
+   951 ;;		_configTimer
+   952 ;; This function uses a non-reentrant model
+   953 ;;
+   954                           
+   955                           	psect	text2
+   956  0005E0                     __ptext2:
+   957                           	opt stack 0
+   958  0005E0                     _OpenTimer0:
+   959                           	opt stack 26
+   960                           
+   961                           ;incstack = 0
+   962                           ;OpenTimer0@config stored from wreg
+   963  0005E0  6E22               	movwf	OpenTimer0@config,c
+   964  0005E2  5022               	movf	OpenTimer0@config,w,c
+   965  0005E4  0B7F               	andlw	127
+   966  0005E6  6ED5               	movwf	4053,c	;volatile
+   967  0005E8  0E00               	movlw	0
+   968  0005EA  6ED7               	movwf	4055,c	;volatile
+   969  0005EC  0E00               	movlw	0
+   970  0005EE  6ED6               	movwf	4054,c	;volatile
+   971  0005F0  94F2               	bcf	intcon,2,c	;volatile
+   972  0005F2  AE22               	btfss	OpenTimer0@config,7,c
+   973  0005F4  D002               	goto	l262
+   974  0005F6  8AF2               	bsf	intcon,5,c	;volatile
+   975  0005F8  D001               	goto	l263
+   976  0005FA                     l262:
+   977  0005FA  9AF2               	bcf	intcon,5,c	;volatile
+   978  0005FC                     l263:
+   979  0005FC  8ED5               	bsf	4053,7,c	;volatile
+   980  0005FE  0012               	return	
+   981  000600                     __end_of_OpenTimer0:
+   982                           	opt stack 0
+   983                           pclatu	equ	0xFFB
+   984                           pclath	equ	0xFFA
+   985                           tblptru	equ	0xFF8
+   986                           tblptrh	equ	0xFF7
+   987                           tblptrl	equ	0xFF6
+   988                           tablat	equ	0xFF5
+   989                           prodh	equ	0xFF4
+   990                           prodl	equ	0xFF3
+   991                           intcon	equ	0xFF2
+   992                           postinc0	equ	0xFEE
+   993                           fsr0h	equ	0xFEA
+   994                           fsr0l	equ	0xFE9
+   995                           wreg	equ	0xFE8
+   996                           postdec1	equ	0xFE5
+   997                           fsr1h	equ	0xFE2
+   998                           fsr1l	equ	0xFE1
+   999                           fsr2h	equ	0xFDA
+  1000                           fsr2l	equ	0xFD9
+  1001                           status	equ	0xFD8
+  1002                           
+  1003 ;; *************** function _configPorts *****************
+  1004 ;; Defined at:
+  1005 ;;		line 14 in file "Config.c"
+  1006 ;; Parameters:    Size  Location     Type
+  1007 ;;		None
+  1008 ;; Auto vars:     Size  Location     Type
+  1009 ;;		None
+  1010 ;; Return value:  Size  Location     Type
+  1011 ;;		None               void
+  1012 ;; Registers used:
+  1013 ;;		None
+  1014 ;; Tracked objects:
+  1015 ;;		On entry : 0/0
+  1016 ;;		On exit  : 0/0
+  1017 ;;		Unchanged: 0/0
+  1018 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1019 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1020 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1021 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1022 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1023 ;;Total ram usage:        0 bytes
+  1024 ;; Hardware stack levels used:    1
+  1025 ;; Hardware stack levels required when called:    2
+  1026 ;; This function calls:
+  1027 ;;		Nothing
+  1028 ;; This function is called by:
+  1029 ;;		_main
+  1030 ;; This function uses a non-reentrant model
+  1031 ;;
+  1032                           
+  1033                           	psect	text3
+  1034  000600                     __ptext3:
+  1035                           	opt stack 0
+  1036  000600                     _configPorts:
+  1037                           	opt stack 27
+  1038                           
+  1039                           ;Config.c: 16: INTCON2bits.NOT_RBPU = 1;
+  1040                           
+  1041                           ;incstack = 0
+  1042  000600  8EF1               	bsf	intcon2,7,c	;volatile
+  1043                           
+  1044                           ;Config.c: 20: ADCON0bits.ADON = 0;
+  1045  000602  90C2               	bcf	4034,0,c	;volatile
+  1046                           
+  1047                           ;Config.c: 21: PIE1bits.SSPIE = 0;
+  1048  000604  969D               	bcf	3997,3,c	;volatile
+  1049                           
+  1050                           ;Config.c: 22: CM1CON0bits.C1ON = 0;
+  1051  000606  9E98               	bcf	3992,7,c	;volatile
+  1052                           
+  1053                           ;Config.c: 24: ANSELCbits.ANSC6 = 0;
+  1054  000608  010F               	movlb	15	; () banked
+  1055  00060A  9D5D               	bcf	93,6,b	;volatile
+  1056                           
+  1057                           ;Config.c: 25: ANSELCbits.ANSC7 = 0;
+  1058  00060C  010F               	movlb	15	; () banked
+  1059  00060E  9F5D               	bcf	93,7,b	;volatile
+  1060                           
+  1061                           ;Config.c: 26: ANSELBbits.ANSB3 = 0;
+  1062  000610  010F               	movlb	15	; () banked
+  1063  000612  975C               	bcf	92,3,b	;volatile
+  1064                           
+  1065                           ;Config.c: 28: TRISBbits.TRISB4 = 0;
+  1066  000614  9893               	bcf	3987,4,c	;volatile
+  1067                           
+  1068                           ;Config.c: 31: TRISBbits.TRISB0 = 1;
+  1069  000616  8093               	bsf	3987,0,c	;volatile
+  1070                           
+  1071                           ;Config.c: 32: TRISBbits.TRISB1 = 0;
+  1072  000618  9293               	bcf	3987,1,c	;volatile
+  1073                           
+  1074                           ;Config.c: 33: TRISBbits.TRISB2 = 0;
+  1075  00061A  9493               	bcf	3987,2,c	;volatile
+  1076                           
+  1077                           ;Config.c: 34: TRISBbits.TRISB3 = 0;
+  1078  00061C  9693               	bcf	3987,3,c	;volatile
+  1079                           
+  1080                           ; BSR set to: 15
+  1081  00061E  0012               	return	
+  1082  000620                     __end_of_configPorts:
+  1083                           	opt stack 0
+  1084                           pclatu	equ	0xFFB
+  1085                           pclath	equ	0xFFA
+  1086                           tblptru	equ	0xFF8
+  1087                           tblptrh	equ	0xFF7
+  1088                           tblptrl	equ	0xFF6
+  1089                           tablat	equ	0xFF5
+  1090                           prodh	equ	0xFF4
+  1091                           prodl	equ	0xFF3
+  1092                           intcon	equ	0xFF2
+  1093                           intcon2	equ	0xFF1
+  1094                           postinc0	equ	0xFEE
+  1095                           fsr0h	equ	0xFEA
+  1096                           fsr0l	equ	0xFE9
+  1097                           wreg	equ	0xFE8
+  1098                           postdec1	equ	0xFE5
+  1099                           fsr1h	equ	0xFE2
+  1100                           fsr1l	equ	0xFE1
+  1101                           fsr2h	equ	0xFDA
+  1102                           fsr2l	equ	0xFD9
+  1103                           status	equ	0xFD8
+  1104                           
+  1105 ;; *************** function _configInterruptPriority *****************
+  1106 ;; Defined at:
+  1107 ;;		line 37 in file "Config.c"
+  1108 ;; Parameters:    Size  Location     Type
+  1109 ;;		None
+  1110 ;; Auto vars:     Size  Location     Type
+  1111 ;;		None
+  1112 ;; Return value:  Size  Location     Type
+  1113 ;;		None               void
+  1114 ;; Registers used:
+  1115 ;;		None
+  1116 ;; Tracked objects:
+  1117 ;;		On entry : 0/0
+  1118 ;;		On exit  : 0/0
+  1119 ;;		Unchanged: 0/0
+  1120 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1121 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1122 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1123 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1124 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1125 ;;Total ram usage:        0 bytes
+  1126 ;; Hardware stack levels used:    1
+  1127 ;; Hardware stack levels required when called:    2
+  1128 ;; This function calls:
+  1129 ;;		Nothing
+  1130 ;; This function is called by:
+  1131 ;;		_main
+  1132 ;; This function uses a non-reentrant model
+  1133 ;;
+  1134                           
+  1135                           	psect	text4
+  1136  0006CA                     __ptext4:
+  1137                           	opt stack 0
+  1138  0006CA                     _configInterruptPriority:
+  1139                           	opt stack 27
+  1140                           
+  1141                           ;Config.c: 38: RCONbits.IPEN = 1;
+  1142                           
+  1143                           ; BSR set to: 15
+  1144                           ;incstack = 0
+  1145  0006CA  8ED0               	bsf	4048,7,c	;volatile
+  1146                           
+  1147                           ;Config.c: 40: INTCONbits.GIEH = 1;
+  1148  0006CC  8EF2               	bsf	intcon,7,c	;volatile
+  1149                           
+  1150                           ;Config.c: 41: INTCONbits.GIEL = 1;
+  1151  0006CE  8CF2               	bsf	intcon,6,c	;volatile
+  1152                           
+  1153                           ;Config.c: 42: INTCON2bits.TMR0IP = 1;
+  1154  0006D0  84F1               	bsf	intcon2,2,c	;volatile
+  1155  0006D2  0012               	return	
+  1156  0006D4                     __end_of_configInterruptPriority:
+  1157                           	opt stack 0
+  1158                           pclatu	equ	0xFFB
+  1159                           pclath	equ	0xFFA
+  1160                           tblptru	equ	0xFF8
+  1161                           tblptrh	equ	0xFF7
+  1162                           tblptrl	equ	0xFF6
+  1163                           tablat	equ	0xFF5
+  1164                           prodh	equ	0xFF4
+  1165                           prodl	equ	0xFF3
+  1166                           intcon	equ	0xFF2
+  1167                           intcon2	equ	0xFF1
+  1168                           postinc0	equ	0xFEE
+  1169                           fsr0h	equ	0xFEA
+  1170                           fsr0l	equ	0xFE9
+  1171                           wreg	equ	0xFE8
+  1172                           postdec1	equ	0xFE5
+  1173                           fsr1h	equ	0xFE2
+  1174                           fsr1l	equ	0xFE1
+  1175                           fsr2h	equ	0xFDA
+  1176                           fsr2l	equ	0xFD9
+  1177                           status	equ	0xFD8
+  1178                           
+  1179 ;; *************** function _configClock *****************
+  1180 ;; Defined at:
+  1181 ;;		line 45 in file "Config.c"
+  1182 ;; Parameters:    Size  Location     Type
+  1183 ;;		None
+  1184 ;; Auto vars:     Size  Location     Type
+  1185 ;;		None
+  1186 ;; Return value:  Size  Location     Type
+  1187 ;;		None               void
+  1188 ;; Registers used:
+  1189 ;;		None
+  1190 ;; Tracked objects:
+  1191 ;;		On entry : 0/0
+  1192 ;;		On exit  : 0/0
+  1193 ;;		Unchanged: 0/0
+  1194 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1195 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1196 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1197 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1198 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1199 ;;Total ram usage:        0 bytes
+  1200 ;; Hardware stack levels used:    1
+  1201 ;; Hardware stack levels required when called:    2
+  1202 ;; This function calls:
+  1203 ;;		Nothing
+  1204 ;; This function is called by:
+  1205 ;;		_main
+  1206 ;; This function uses a non-reentrant model
+  1207 ;;
+  1208                           
+  1209                           	psect	text5
+  1210  0006EE                     __ptext5:
+  1211                           	opt stack 0
+  1212  0006EE                     _configClock:
+  1213                           	opt stack 27
+  1214                           
+  1215                           ;Config.c: 46: OSCCONbits.IDLEN = 1;
+  1216                           
+  1217                           ;incstack = 0
+  1218  0006EE  8ED3               	bsf	4051,7,c	;volatile
+  1219  0006F0  0012               	return	
+  1220  0006F2                     __end_of_configClock:
+  1221                           	opt stack 0
+  1222                           pclatu	equ	0xFFB
+  1223                           pclath	equ	0xFFA
+  1224                           tblptru	equ	0xFF8
+  1225                           tblptrh	equ	0xFF7
+  1226                           tblptrl	equ	0xFF6
+  1227                           tablat	equ	0xFF5
+  1228                           prodh	equ	0xFF4
+  1229                           prodl	equ	0xFF3
+  1230                           intcon	equ	0xFF2
+  1231                           intcon2	equ	0xFF1
+  1232                           postinc0	equ	0xFEE
+  1233                           fsr0h	equ	0xFEA
+  1234                           fsr0l	equ	0xFE9
+  1235                           wreg	equ	0xFE8
+  1236                           postdec1	equ	0xFE5
+  1237                           fsr1h	equ	0xFE2
+  1238                           fsr1l	equ	0xFE1
+  1239                           fsr2h	equ	0xFDA
+  1240                           fsr2l	equ	0xFD9
+  1241                           status	equ	0xFD8
+  1242                           
+  1243 ;; *************** function _Serial_sendFrame *****************
+  1244 ;; Defined at:
+  1245 ;;		line 47 in file "serial.c"
+  1246 ;; Parameters:    Size  Location     Type
+  1247 ;;  frame           2   34[COMRAM] PTR const struct serial_
+  1248 ;;		 -> main@frame(5), 
+  1249 ;; Auto vars:     Size  Location     Type
+  1250 ;;  p               2   40[COMRAM] PTR unsigned char 
+  1251 ;;		 -> CyclicBitBuffer_buffer(1537), 
+  1252 ;;  i               2   38[COMRAM] unsigned short 
+  1253 ;; Return value:  Size  Location     Type
+  1254 ;;		None               void
+  1255 ;; Registers used:
+  1256 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+  1257 ;; Tracked objects:
+  1258 ;;		On entry : 0/0
+  1259 ;;		On exit  : 0/0
+  1260 ;;		Unchanged: 0/0
+  1261 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1262 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1263 ;;      Locals:         4       0       0       0       0       0       0       0       0
+  1264 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1265 ;;      Totals:         8       0       0       0       0       0       0       0       0
+  1266 ;;Total ram usage:        8 bytes
+  1267 ;; Hardware stack levels used:    1
+  1268 ;; Hardware stack levels required when called:    3
+  1269 ;; This function calls:
+  1270 ;;		_Write1USART
+  1271 ;; This function is called by:
+  1272 ;;		_main
+  1273 ;; This function uses a non-reentrant model
+  1274 ;;
+  1275                           
+  1276                           	psect	text6
+  1277  000390                     __ptext6:
+  1278                           	opt stack 0
+  1279  000390                     _Serial_sendFrame:
+  1280                           	opt stack 26
+  1281  000390                     l84:
+  1282  000390  A2AC               	btfss	4012,1,c	;volatile
+  1283  000392  D7FE               	goto	l84
+  1284                           
+  1285                           ;serial.c: 52: Write1USART(0xee);
+  1286  000394  0EEE               	movlw	238
+  1287  000396  EC1F  F003         	call	_Write1USART
+  1288  00039A                     l87:
+  1289  00039A  A2AC               	btfss	4012,1,c	;volatile
+  1290  00039C  D7FE               	goto	l87
+  1291                           
+  1292                           ;serial.c: 56: Write1USART(frame->header);
+  1293  00039E  C023  FFD9         	movff	Serial_sendFrame@frame,fsr2l
+  1294  0003A2  C024  FFDA         	movff	Serial_sendFrame@frame+1,fsr2h
+  1295  0003A6  50DF               	movf	indf2,w,c
+  1296  0003A8  EC1F  F003         	call	_Write1USART
+  1297  0003AC                     l90:
+  1298  0003AC  A2AC               	btfss	4012,1,c	;volatile
+  1299  0003AE  D7FE               	goto	l90
+  1300                           
+  1301                           ;serial.c: 59: Write1USART(frame->lenght >> 8);
+  1302  0003B0  EE20 F001          	lfsr	2,1
+  1303  0003B4  5023               	movf	Serial_sendFrame@frame,w,c
+  1304  0003B6  26D9               	addwf	fsr2l,f,c
+  1305  0003B8  5024               	movf	Serial_sendFrame@frame+1,w,c
+  1306  0003BA  22DA               	addwfc	fsr2h,f,c
+  1307  0003BC  CFDE F025          	movff	postinc2,??_Serial_sendFrame
+  1308  0003C0  CFDD F026          	movff	postdec2,??_Serial_sendFrame+1
+  1309  0003C4  C026  F025         	movff	??_Serial_sendFrame+1,??_Serial_sendFrame
+  1310  0003C8  6A26               	clrf	??_Serial_sendFrame+1,c
+  1311  0003CA  5025               	movf	??_Serial_sendFrame,w,c
+  1312  0003CC  EC1F  F003         	call	_Write1USART
+  1313  0003D0                     l93:
+  1314  0003D0  A2AC               	btfss	4012,1,c	;volatile
+  1315  0003D2  D7FE               	goto	l93
+  1316                           
+  1317                           ;serial.c: 62: Write1USART(frame->lenght);
+  1318  0003D4  EE20 F001          	lfsr	2,1
+  1319  0003D8  5023               	movf	Serial_sendFrame@frame,w,c
+  1320  0003DA  26D9               	addwf	fsr2l,f,c
+  1321  0003DC  5024               	movf	Serial_sendFrame@frame+1,w,c
+  1322  0003DE  22DA               	addwfc	fsr2h,f,c
+  1323  0003E0  50DF               	movf	indf2,w,c
+  1324  0003E2  EC1F  F003         	call	_Write1USART
+  1325                           
+  1326                           ;serial.c: 64: unsigned char * p = frame->content;
+  1327  0003E6  EE20 F003          	lfsr	2,3
+  1328  0003EA  5023               	movf	Serial_sendFrame@frame,w,c
+  1329  0003EC  26D9               	addwf	fsr2l,f,c
+  1330  0003EE  5024               	movf	Serial_sendFrame@frame+1,w,c
+  1331  0003F0  22DA               	addwfc	fsr2h,f,c
+  1332  0003F2  CFDE F029          	movff	postinc2,Serial_sendFrame@p
+  1333  0003F6  CFDD F02A          	movff	postdec2,Serial_sendFrame@p+1
+  1334                           
+  1335                           ;serial.c: 66: for(i=0; i < frame->lenght ; i++, p++) {
+  1336  0003FA  0E00               	movlw	0
+  1337  0003FC  6E28               	movwf	Serial_sendFrame@i+1,c
+  1338  0003FE  0E00               	movlw	0
+  1339  000400  6E27               	movwf	Serial_sendFrame@i,c
+  1340  000402  D00D               	goto	l1129
+  1341  000404                     l98:
+  1342  000404  A2AC               	btfss	4012,1,c	;volatile
+  1343  000406  D7FE               	goto	l98
+  1344                           
+  1345                           ;serial.c: 69: Write1USART(*p);
+  1346  000408  C029  FFD9         	movff	Serial_sendFrame@p,fsr2l
+  1347  00040C  C02A  FFDA         	movff	Serial_sendFrame@p+1,fsr2h
+  1348  000410  50DF               	movf	indf2,w,c
+  1349  000412  EC1F  F003         	call	_Write1USART
+  1350  000416  4A27               	infsnz	Serial_sendFrame@i,f,c
+  1351  000418  2A28               	incf	Serial_sendFrame@i+1,f,c
+  1352  00041A  4A29               	infsnz	Serial_sendFrame@p,f,c
+  1353  00041C  2A2A               	incf	Serial_sendFrame@p+1,f,c
+  1354  00041E                     l1129:
+  1355  00041E  EE20 F001          	lfsr	2,1
+  1356  000422  5023               	movf	Serial_sendFrame@frame,w,c
+  1357  000424  26D9               	addwf	fsr2l,f,c
+  1358  000426  5024               	movf	Serial_sendFrame@frame+1,w,c
+  1359  000428  22DA               	addwfc	fsr2h,f,c
+  1360  00042A  CFDE F025          	movff	postinc2,??_Serial_sendFrame
+  1361  00042E  CFDD F026          	movff	postdec2,??_Serial_sendFrame+1
+  1362  000432  5025               	movf	??_Serial_sendFrame,w,c
+  1363  000434  5C27               	subwf	Serial_sendFrame@i,w,c
+  1364  000436  5026               	movf	??_Serial_sendFrame+1,w,c
+  1365  000438  5828               	subwfb	Serial_sendFrame@i+1,w,c
+  1366  00043A  B0D8               	btfsc	status,0,c
+  1367  00043C  0012               	return	
+  1368  00043E  D7E2               	goto	l98
+  1369  000440                     __end_of_Serial_sendFrame:
+  1370                           	opt stack 0
+  1371                           pclatu	equ	0xFFB
+  1372                           pclath	equ	0xFFA
+  1373                           tblptru	equ	0xFF8
+  1374                           tblptrh	equ	0xFF7
+  1375                           tblptrl	equ	0xFF6
+  1376                           tablat	equ	0xFF5
+  1377                           prodh	equ	0xFF4
+  1378                           prodl	equ	0xFF3
+  1379                           intcon	equ	0xFF2
+  1380                           intcon2	equ	0xFF1
+  1381                           postinc0	equ	0xFEE
+  1382                           fsr0h	equ	0xFEA
+  1383                           fsr0l	equ	0xFE9
+  1384                           wreg	equ	0xFE8
+  1385                           postdec1	equ	0xFE5
+  1386                           fsr1h	equ	0xFE2
+  1387                           fsr1l	equ	0xFE1
+  1388                           indf2	equ	0xFDF
+  1389                           postinc2	equ	0xFDE
+  1390                           postdec2	equ	0xFDD
+  1391                           fsr2h	equ	0xFDA
+  1392                           fsr2l	equ	0xFD9
+  1393                           status	equ	0xFD8
+  1394                           
+  1395 ;; *************** function _Write1USART *****************
+  1396 ;; Defined at:
+  1397 ;;		line 14 in file "/opt/microchip/xc8/v1.32/sources/pic18/plib/USART/u1write.c"
+  1398 ;; Parameters:    Size  Location     Type
+  1399 ;;  data            1    wreg     unsigned char 
+  1400 ;; Auto vars:     Size  Location     Type
+  1401 ;;  data            1   33[COMRAM] unsigned char 
+  1402 ;; Return value:  Size  Location     Type
+  1403 ;;		None               void
+  1404 ;; Registers used:
+  1405 ;;		wreg
+  1406 ;; Tracked objects:
+  1407 ;;		On entry : 0/0
+  1408 ;;		On exit  : 0/0
+  1409 ;;		Unchanged: 0/0
+  1410 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1411 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1412 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1413 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1414 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1415 ;;Total ram usage:        1 bytes
+  1416 ;; Hardware stack levels used:    1
+  1417 ;; Hardware stack levels required when called:    2
+  1418 ;; This function calls:
+  1419 ;;		Nothing
+  1420 ;; This function is called by:
+  1421 ;;		_Serial_sendFrame
+  1422 ;; This function uses a non-reentrant model
+  1423 ;;
+  1424                           
+  1425                           	psect	text7
+  1426  00063E                     __ptext7:
+  1427                           	opt stack 0
+  1428  00063E                     _Write1USART:
+  1429                           	opt stack 26
+  1430                           
+  1431                           ;incstack = 0
+  1432                           ;Write1USART@data stored from wreg
+  1433  00063E  6E22               	movwf	Write1USART@data,c
+  1434  000640  ACAC               	btfss	4012,6,c	;volatile
+  1435  000642  D003               	goto	l1007
+  1436  000644  90AC               	bcf	4012,0,c	;volatile
+  1437  000646  B240               	btfsc	_USART1_Status,1,c
+  1438  000648  80AC               	bsf	4012,0,c	;volatile
+  1439  00064A                     l1007:
+  1440  00064A  C022  FFAD         	movff	Write1USART@data,4013	;volatile
+  1441  00064E  0012               	return	
+  1442  000650                     __end_of_Write1USART:
+  1443                           	opt stack 0
+  1444                           pclatu	equ	0xFFB
+  1445                           pclath	equ	0xFFA
+  1446                           tblptru	equ	0xFF8
+  1447                           tblptrh	equ	0xFF7
+  1448                           tblptrl	equ	0xFF6
+  1449                           tablat	equ	0xFF5
+  1450                           prodh	equ	0xFF4
+  1451                           prodl	equ	0xFF3
+  1452                           intcon	equ	0xFF2
+  1453                           intcon2	equ	0xFF1
+  1454                           postinc0	equ	0xFEE
+  1455                           fsr0h	equ	0xFEA
+  1456                           fsr0l	equ	0xFE9
+  1457                           wreg	equ	0xFE8
+  1458                           postdec1	equ	0xFE5
+  1459                           fsr1h	equ	0xFE2
+  1460                           fsr1l	equ	0xFE1
+  1461                           indf2	equ	0xFDF
+  1462                           postinc2	equ	0xFDE
+  1463                           postdec2	equ	0xFDD
+  1464                           fsr2h	equ	0xFDA
+  1465                           fsr2l	equ	0xFD9
+  1466                           status	equ	0xFD8
+  1467                           
+  1468 ;; *************** function _Serial_readFrame *****************
+  1469 ;; Defined at:
+  1470 ;;		line 12 in file "serial.c"
+  1471 ;; Parameters:    Size  Location     Type
+  1472 ;;  frame           2   34[COMRAM] PTR struct serial_frame
+  1473 ;;		 -> main@frame(5), 
+  1474 ;; Auto vars:     Size  Location     Type
+  1475 ;;  p               2   40[COMRAM] PTR unsigned char 
+  1476 ;;		 -> CyclicBitBuffer_buffer(1537), 
+  1477 ;;  i               2   38[COMRAM] unsigned short 
+  1478 ;; Return value:  Size  Location     Type
+  1479 ;;                  2   34[COMRAM] int 
+  1480 ;; Registers used:
+  1481 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+  1482 ;; Tracked objects:
+  1483 ;;		On entry : 0/0
+  1484 ;;		On exit  : 0/0
+  1485 ;;		Unchanged: 0/0
+  1486 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1487 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1488 ;;      Locals:         4       0       0       0       0       0       0       0       0
+  1489 ;;      Temps:          2       0       0       0       0       0       0       0       0
+  1490 ;;      Totals:         8       0       0       0       0       0       0       0       0
+  1491 ;;Total ram usage:        8 bytes
+  1492 ;; Hardware stack levels used:    1
+  1493 ;; Hardware stack levels required when called:    3
+  1494 ;; This function calls:
+  1495 ;;		_Read1USART
+  1496 ;; This function is called by:
+  1497 ;;		_main
+  1498 ;; This function uses a non-reentrant model
+  1499 ;;
+  1500                           
+  1501                           	psect	text8
+  1502  00019C                     __ptext8:
+  1503                           	opt stack 0
+  1504  00019C                     _Serial_readFrame:
+  1505                           	opt stack 26
+  1506                           
+  1507                           ;serial.c: 13: unsigned short i;
+  1508                           ;serial.c: 15: if(!(PIR1bits.RC1IF)) {
+  1509                           
+  1510                           ;incstack = 0
+  1511  00019C  BA9E               	btfsc	3998,5,c	;volatile
+  1512  00019E  D005               	goto	l1061
+  1513                           
+  1514                           ;serial.c: 16: return 0;
+  1515  0001A0  0E00               	movlw	0
+  1516  0001A2  6E24               	movwf	?_Serial_readFrame+1,c
+  1517  0001A4  0E00               	movlw	0
+  1518  0001A6  6E23               	movwf	?_Serial_readFrame,c
+  1519  0001A8  0012               	return	
+  1520  0001AA                     l1061:
+  1521                           
+  1522                           ;serial.c: 17: }
+  1523                           ;serial.c: 19: frame->header = Read1USART();
+  1524  0001AA  EC10  F003         	call	_Read1USART	;wreg free
+  1525  0001AE  C023  FFD9         	movff	Serial_readFrame@frame,fsr2l
+  1526  0001B2  C024  FFDA         	movff	Serial_readFrame@frame+1,fsr2h
+  1527  0001B6  6EDF               	movwf	indf2,c
+  1528                           
+  1529                           ;serial.c: 21: if(frame->header != 0xee) {
+  1530  0001B8  C023  FFD9         	movff	Serial_readFrame@frame,fsr2l
+  1531  0001BC  C024  FFDA         	movff	Serial_readFrame@frame+1,fsr2h
+  1532  0001C0  50DF               	movf	indf2,w,c
+  1533  0001C2  0AEE               	xorlw	238
+  1534  0001C4  B4D8               	btfsc	status,2,c
+  1535  0001C6  D005               	goto	l67
+  1536                           
+  1537                           ;serial.c: 22: return 0;
+  1538  0001C8  0E00               	movlw	0
+  1539  0001CA  6E24               	movwf	?_Serial_readFrame+1,c
+  1540  0001CC  0E00               	movlw	0
+  1541  0001CE  6E23               	movwf	?_Serial_readFrame,c
+  1542  0001D0  0012               	return	
+  1543  0001D2                     l67:
+  1544  0001D2  AA9E               	btfss	3998,5,c	;volatile
+  1545  0001D4  D7FE               	goto	l67
+  1546                           
+  1547                           ;serial.c: 28: frame->header = Read1USART();
+  1548  0001D6  EC10  F003         	call	_Read1USART	;wreg free
+  1549  0001DA  C023  FFD9         	movff	Serial_readFrame@frame,fsr2l
+  1550  0001DE  C024  FFDA         	movff	Serial_readFrame@frame+1,fsr2h
+  1551  0001E2  6EDF               	movwf	indf2,c
+  1552  0001E4                     l70:
+  1553  0001E4  AA9E               	btfss	3998,5,c	;volatile
+  1554  0001E6  D7FE               	goto	l70
+  1555                           
+  1556                           ;serial.c: 32: frame->lenght = Read1USART();
+  1557  0001E8  EC10  F003         	call	_Read1USART	;wreg free
+  1558  0001EC  6E25               	movwf	??_Serial_readFrame& (0+255),c
+  1559  0001EE  6A26               	clrf	(??_Serial_readFrame+1)& (0+255),c
+  1560  0001F0  EE20 F001          	lfsr	2,1
+  1561  0001F4  5023               	movf	Serial_readFrame@frame,w,c
+  1562  0001F6  26D9               	addwf	fsr2l,f,c
+  1563  0001F8  5024               	movf	Serial_readFrame@frame+1,w,c
+  1564  0001FA  22DA               	addwfc	fsr2h,f,c
+  1565  0001FC  C025  FFDE         	movff	??_Serial_readFrame,postinc2
+  1566  000200  C026  FFDD         	movff	??_Serial_readFrame+1,postdec2
+  1567                           
+  1568                           ;serial.c: 33: frame->lenght = frame->lenght << 8;
+  1569  000204  EE20 F001          	lfsr	2,1
+  1570  000208  5023               	movf	Serial_readFrame@frame,w,c
+  1571  00020A  26D9               	addwf	fsr2l,f,c
+  1572  00020C  5024               	movf	Serial_readFrame@frame+1,w,c
+  1573  00020E  22DA               	addwfc	fsr2h,f,c
+  1574  000210  CFDE F025          	movff	postinc2,??_Serial_readFrame
+  1575  000214  CFDD F026          	movff	postdec2,??_Serial_readFrame+1
+  1576  000218  C025  F026         	movff	??_Serial_readFrame,??_Serial_readFrame+1
+  1577  00021C  6A25               	clrf	??_Serial_readFrame,c
+  1578  00021E  EE20 F001          	lfsr	2,1
+  1579  000222  5023               	movf	Serial_readFrame@frame,w,c
+  1580  000224  26D9               	addwf	fsr2l,f,c
+  1581  000226  5024               	movf	Serial_readFrame@frame+1,w,c
+  1582  000228  22DA               	addwfc	fsr2h,f,c
+  1583  00022A  C025  FFDE         	movff	??_Serial_readFrame,postinc2
+  1584  00022E  C026  FFDD         	movff	??_Serial_readFrame+1,postdec2
+  1585  000232                     l73:
+  1586  000232  AA9E               	btfss	3998,5,c	;volatile
+  1587  000234  D7FE               	goto	l73
+  1588                           
+  1589                           ;serial.c: 36: frame->lenght += Read1USART();
+  1590  000236  EE20 F001          	lfsr	2,1
+  1591  00023A  5023               	movf	Serial_readFrame@frame,w,c
+  1592  00023C  26D9               	addwf	fsr2l,f,c
+  1593  00023E  5024               	movf	Serial_readFrame@frame+1,w,c
+  1594  000240  22DA               	addwfc	fsr2h,f,c
+  1595  000242  EC10  F003         	call	_Read1USART	;wreg free
+  1596  000246  6E25               	movwf	??_Serial_readFrame& (0+255),c
+  1597  000248  5025               	movf	??_Serial_readFrame,w,c
+  1598  00024A  26DE               	addwf	postinc2,f,c
+  1599  00024C  0E00               	movlw	0
+  1600  00024E  22DD               	addwfc	postdec2,f,c
+  1601                           
+  1602                           ;serial.c: 38: unsigned char* p = frame->content;
+  1603  000250  EE20 F003          	lfsr	2,3
+  1604  000254  5023               	movf	Serial_readFrame@frame,w,c
+  1605  000256  26D9               	addwf	fsr2l,f,c
+  1606  000258  5024               	movf	Serial_readFrame@frame+1,w,c
+  1607  00025A  22DA               	addwfc	fsr2h,f,c
+  1608  00025C  CFDE F029          	movff	postinc2,Serial_readFrame@p
+  1609  000260  CFDD F02A          	movff	postdec2,Serial_readFrame@p+1
+  1610                           
+  1611                           ;serial.c: 39: for(i=0; i< frame->lenght; p++,i++) {
+  1612  000264  0E00               	movlw	0
+  1613  000266  6E28               	movwf	Serial_readFrame@i+1,c
+  1614  000268  0E00               	movlw	0
+  1615  00026A  6E27               	movwf	Serial_readFrame@i,c
+  1616  00026C  D00D               	goto	l1087
+  1617  00026E                     l78:
+  1618  00026E  AA9E               	btfss	3998,5,c	;volatile
+  1619  000270  D7FE               	goto	l78
+  1620                           
+  1621                           ;serial.c: 42: (*p) = Read1USART();
+  1622  000272  EC10  F003         	call	_Read1USART	;wreg free
+  1623  000276  C029  FFD9         	movff	Serial_readFrame@p,fsr2l
+  1624  00027A  C02A  FFDA         	movff	Serial_readFrame@p+1,fsr2h
+  1625  00027E  6EDF               	movwf	indf2,c
+  1626  000280  4A29               	infsnz	Serial_readFrame@p,f,c
+  1627  000282  2A2A               	incf	Serial_readFrame@p+1,f,c
+  1628  000284  4A27               	infsnz	Serial_readFrame@i,f,c
+  1629  000286  2A28               	incf	Serial_readFrame@i+1,f,c
+  1630  000288                     l1087:
+  1631  000288  EE20 F001          	lfsr	2,1
+  1632  00028C  5023               	movf	Serial_readFrame@frame,w,c
+  1633  00028E  26D9               	addwf	fsr2l,f,c
+  1634  000290  5024               	movf	Serial_readFrame@frame+1,w,c
+  1635  000292  22DA               	addwfc	fsr2h,f,c
+  1636  000294  CFDE F025          	movff	postinc2,??_Serial_readFrame
+  1637  000298  CFDD F026          	movff	postdec2,??_Serial_readFrame+1
+  1638  00029C  5025               	movf	??_Serial_readFrame,w,c
+  1639  00029E  5C27               	subwf	Serial_readFrame@i,w,c
+  1640  0002A0  5026               	movf	??_Serial_readFrame+1,w,c
+  1641  0002A2  5828               	subwfb	Serial_readFrame@i+1,w,c
+  1642  0002A4  A0D8               	btfss	status,0,c
+  1643  0002A6  D7E3               	goto	l78
+  1644                           
+  1645                           ;serial.c: 43: }
+  1646                           ;serial.c: 44: return 1;
+  1647  0002A8  0E00               	movlw	0
+  1648  0002AA  6E24               	movwf	?_Serial_readFrame+1,c
+  1649  0002AC  0E01               	movlw	1
+  1650  0002AE  6E23               	movwf	?_Serial_readFrame,c
+  1651  0002B0  0012               	return	
+  1652  0002B2                     __end_of_Serial_readFrame:
+  1653                           	opt stack 0
+  1654                           pclatu	equ	0xFFB
+  1655                           pclath	equ	0xFFA
+  1656                           tblptru	equ	0xFF8
+  1657                           tblptrh	equ	0xFF7
+  1658                           tblptrl	equ	0xFF6
+  1659                           tablat	equ	0xFF5
+  1660                           prodh	equ	0xFF4
+  1661                           prodl	equ	0xFF3
+  1662                           intcon	equ	0xFF2
+  1663                           intcon2	equ	0xFF1
+  1664                           postinc0	equ	0xFEE
+  1665                           fsr0h	equ	0xFEA
+  1666                           fsr0l	equ	0xFE9
+  1667                           wreg	equ	0xFE8
+  1668                           postdec1	equ	0xFE5
+  1669                           fsr1h	equ	0xFE2
+  1670                           fsr1l	equ	0xFE1
+  1671                           indf2	equ	0xFDF
+  1672                           postinc2	equ	0xFDE
+  1673                           postdec2	equ	0xFDD
+  1674                           fsr2h	equ	0xFDA
+  1675                           fsr2l	equ	0xFD9
+  1676                           status	equ	0xFD8
+  1677                           
+  1678 ;; *************** function _Read1USART *****************
+  1679 ;; Defined at:
+  1680 ;;		line 17 in file "/opt/microchip/xc8/v1.32/sources/pic18/plib/USART/u1read.c"
+  1681 ;; Parameters:    Size  Location     Type
+  1682 ;;		None
+  1683 ;; Auto vars:     Size  Location     Type
+  1684 ;;  data            1   33[COMRAM] unsigned char 
+  1685 ;; Return value:  Size  Location     Type
+  1686 ;;                  1    wreg      unsigned char 
+  1687 ;; Registers used:
+  1688 ;;		wreg, status,2, status,0
+  1689 ;; Tracked objects:
+  1690 ;;		On entry : 0/0
+  1691 ;;		On exit  : 0/0
+  1692 ;;		Unchanged: 0/0
+  1693 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1694 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1695 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1696 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1697 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  1698 ;;Total ram usage:        1 bytes
+  1699 ;; Hardware stack levels used:    1
+  1700 ;; Hardware stack levels required when called:    2
+  1701 ;; This function calls:
+  1702 ;;		Nothing
+  1703 ;; This function is called by:
+  1704 ;;		_Serial_readFrame
+  1705 ;; This function uses a non-reentrant model
+  1706 ;;
+  1707                           
+  1708                           	psect	text9
+  1709  000620                     __ptext9:
+  1710                           	opt stack 0
+  1711  000620                     _Read1USART:
+  1712                           	opt stack 26
+  1713                           
+  1714                           ;incstack = 0
+  1715  000620  0EF2               	movlw	242
+  1716  000622  1640               	andwf	_USART1_Status,f,c
+  1717  000624  ACAB               	btfss	4011,6,c	;volatile
+  1718  000626  D003               	goto	l308
+  1719  000628  9040               	bcf	_USART1_Status,0,c
+  1720  00062A  B0AB               	btfsc	4011,0,c	;volatile
+  1721  00062C  8040               	bsf	_USART1_Status,0,c
+  1722  00062E                     l308:
+  1723  00062E  B4AB               	btfsc	4011,2,c	;volatile
+  1724  000630  8440               	bsf	_USART1_Status,2,c
+  1725  000632  B2AB               	btfsc	4011,1,c	;volatile
+  1726  000634  8640               	bsf	_USART1_Status,3,c
+  1727  000636  CFAE F022          	movff	4014,Read1USART@data	;volatile
+  1728  00063A  5022               	movf	Read1USART@data,w,c
+  1729  00063C  0012               	return	
+  1730  00063E                     __end_of_Read1USART:
+  1731                           	opt stack 0
+  1732                           pclatu	equ	0xFFB
+  1733                           pclath	equ	0xFFA
+  1734                           tblptru	equ	0xFF8
+  1735                           tblptrh	equ	0xFF7
+  1736                           tblptrl	equ	0xFF6
+  1737                           tablat	equ	0xFF5
+  1738                           prodh	equ	0xFF4
+  1739                           prodl	equ	0xFF3
+  1740                           intcon	equ	0xFF2
+  1741                           intcon2	equ	0xFF1
+  1742                           postinc0	equ	0xFEE
+  1743                           fsr0h	equ	0xFEA
+  1744                           fsr0l	equ	0xFE9
+  1745                           wreg	equ	0xFE8
+  1746                           postdec1	equ	0xFE5
+  1747                           fsr1h	equ	0xFE2
+  1748                           fsr1l	equ	0xFE1
+  1749                           indf2	equ	0xFDF
+  1750                           postinc2	equ	0xFDE
+  1751                           postdec2	equ	0xFDD
+  1752                           fsr2h	equ	0xFDA
+  1753                           fsr2l	equ	0xFD9
+  1754                           status	equ	0xFD8
+  1755                           
+  1756 ;; *************** function _Serial_configSerialPort *****************
+  1757 ;; Defined at:
+  1758 ;;		line 6 in file "serial.c"
+  1759 ;; Parameters:    Size  Location     Type
+  1760 ;;		None
+  1761 ;; Auto vars:     Size  Location     Type
+  1762 ;;		None
+  1763 ;; Return value:  Size  Location     Type
+  1764 ;;		None               void
+  1765 ;; Registers used:
+  1766 ;;		wreg, status,2, cstack
+  1767 ;; Tracked objects:
+  1768 ;;		On entry : 0/0
+  1769 ;;		On exit  : 0/0
+  1770 ;;		Unchanged: 0/0
+  1771 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1772 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1773 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1774 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1775 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1776 ;;Total ram usage:        0 bytes
+  1777 ;; Hardware stack levels used:    1
+  1778 ;; Hardware stack levels required when called:    3
+  1779 ;; This function calls:
+  1780 ;;		_Open1USART
+  1781 ;; This function is called by:
+  1782 ;;		_main
+  1783 ;; This function uses a non-reentrant model
+  1784 ;;
+  1785                           
+  1786                           	psect	text10
+  1787  000662                     __ptext10:
+  1788                           	opt stack 0
+  1789  000662                     _Serial_configSerialPort:
+  1790                           	opt stack 26
+  1791                           
+  1792                           ;serial.c: 7: Open1USART(0b01111111 & 0b10111111 & 0b11111110 & 0b11111101 & 0b11111111,
+  1793                           ;serial.c: 8: 16);
+  1794                           
+  1795                           ;incstack = 0
+  1796  000662  0E00               	movlw	0
+  1797  000664  6E23               	movwf	Open1USART@spbrg+1,c
+  1798  000666  0E10               	movlw	16
+  1799  000668  6E22               	movwf	Open1USART@spbrg,c
+  1800  00066A  0E3C               	movlw	60
+  1801  00066C  EC20  F002         	call	_Open1USART
+  1802  000670  0012               	return	
+  1803  000672                     __end_of_Serial_configSerialPort:
+  1804                           	opt stack 0
+  1805                           pclatu	equ	0xFFB
+  1806                           pclath	equ	0xFFA
+  1807                           tblptru	equ	0xFF8
+  1808                           tblptrh	equ	0xFF7
+  1809                           tblptrl	equ	0xFF6
+  1810                           tablat	equ	0xFF5
+  1811                           prodh	equ	0xFF4
+  1812                           prodl	equ	0xFF3
+  1813                           intcon	equ	0xFF2
+  1814                           intcon2	equ	0xFF1
+  1815                           postinc0	equ	0xFEE
+  1816                           fsr0h	equ	0xFEA
+  1817                           fsr0l	equ	0xFE9
+  1818                           wreg	equ	0xFE8
+  1819                           postdec1	equ	0xFE5
+  1820                           fsr1h	equ	0xFE2
+  1821                           fsr1l	equ	0xFE1
+  1822                           indf2	equ	0xFDF
+  1823                           postinc2	equ	0xFDE
+  1824                           postdec2	equ	0xFDD
+  1825                           fsr2h	equ	0xFDA
+  1826                           fsr2l	equ	0xFD9
+  1827                           status	equ	0xFD8
+  1828                           
+  1829 ;; *************** function _Open1USART *****************
+  1830 ;; Defined at:
+  1831 ;;		line 124 in file "/opt/microchip/xc8/v1.32/sources/pic18/plib/USART/u1open.c"
+  1832 ;; Parameters:    Size  Location     Type
+  1833 ;;  config          1    wreg     unsigned char 
+  1834 ;;  spbrg           2   33[COMRAM] unsigned int 
+  1835 ;; Auto vars:     Size  Location     Type
+  1836 ;;  config          1   38[COMRAM] unsigned char 
+  1837 ;; Return value:  Size  Location     Type
+  1838 ;;		None               void
+  1839 ;; Registers used:
+  1840 ;;		wreg, status,2
+  1841 ;; Tracked objects:
+  1842 ;;		On entry : 0/0
+  1843 ;;		On exit  : 0/0
+  1844 ;;		Unchanged: 0/0
+  1845 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1846 ;;      Params:         2       0       0       0       0       0       0       0       0
+  1847 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  1848 ;;      Temps:          3       0       0       0       0       0       0       0       0
+  1849 ;;      Totals:         6       0       0       0       0       0       0       0       0
+  1850 ;;Total ram usage:        6 bytes
+  1851 ;; Hardware stack levels used:    1
+  1852 ;; Hardware stack levels required when called:    2
+  1853 ;; This function calls:
+  1854 ;;		Nothing
+  1855 ;; This function is called by:
+  1856 ;;		_Serial_configSerialPort
+  1857 ;; This function uses a non-reentrant model
+  1858 ;;
+  1859                           
+  1860                           	psect	text11
+  1861  000440                     __ptext11:
+  1862                           	opt stack 0
+  1863  000440                     _Open1USART:
+  1864                           	opt stack 26
+  1865                           
+  1866                           ;incstack = 0
+  1867                           ;Open1USART@config stored from wreg
+  1868  000440  6E27               	movwf	Open1USART@config,c
+  1869  000442  0E00               	movlw	0
+  1870  000444  6EAC               	movwf	4012,c	;volatile
+  1871  000446  0E00               	movlw	0
+  1872  000448  6EAB               	movwf	4011,c	;volatile
+  1873  00044A  B027               	btfsc	Open1USART@config,0,c
+  1874  00044C  88AC               	bsf	4012,4,c	;volatile
+  1875  00044E  A227               	btfss	Open1USART@config,1,c
+  1876  000450  D002               	goto	l955
+  1877  000452  8CAC               	bsf	4012,6,c	;volatile
+  1878  000454  8CAB               	bsf	4011,6,c	;volatile
+  1879  000456                     l955:
+  1880  000456  B427               	btfsc	Open1USART@config,2,c
+  1881  000458  8EAC               	bsf	4012,7,c	;volatile
+  1882  00045A  A627               	btfss	Open1USART@config,3,c
+  1883  00045C  D002               	goto	l291
+  1884  00045E  88AB               	bsf	4011,4,c	;volatile
+  1885  000460  D001               	goto	l963
+  1886  000462                     l291:
+  1887  000462  8AAB               	bsf	4011,5,c	;volatile
+  1888  000464                     l963:
+  1889  000464  B827               	btfsc	Open1USART@config,4,c
+  1890  000466  84AC               	bsf	4012,2,c	;volatile
+  1891  000468  BA27               	btfsc	Open1USART@config,5,c
+  1892  00046A  86AB               	bsf	4011,3,c	;volatile
+  1893  00046C  AC27               	btfss	Open1USART@config,6,c
+  1894  00046E  D002               	goto	l295
+  1895  000470  8A9D               	bsf	3997,5,c	;volatile
+  1896  000472  D001               	goto	l975
+  1897  000474                     l295:
+  1898  000474  9A9D               	bcf	3997,5,c	;volatile
+  1899  000476                     l975:
+  1900  000476  AE27               	btfss	Open1USART@config,7,c
+  1901  000478  D002               	goto	l297
+  1902  00047A  889D               	bsf	3997,4,c	;volatile
+  1903  00047C  D001               	goto	l298
+  1904  00047E                     l297:
+  1905  00047E  989D               	bcf	3997,4,c	;volatile
+  1906  000480                     l298:
+  1907  000480  C022  FFAF         	movff	Open1USART@spbrg,4015	;volatile
+  1908  000484  C023  F024         	movff	Open1USART@spbrg+1,??_Open1USART
+  1909  000488  C024  F025         	movff	??_Open1USART,??_Open1USART+1
+  1910  00048C  6A26               	clrf	(??_Open1USART+2)& (0+255),c
+  1911  00048E  5025               	movf	??_Open1USART+1,w,c
+  1912  000490  6EB0               	movwf	4016,c	;volatile
+  1913  000492  8AAC               	bsf	4012,5,c	;volatile
+  1914  000494  8EAB               	bsf	4011,7,c	;volatile
+  1915  000496  0012               	return	
+  1916  000498                     __end_of_Open1USART:
+  1917                           	opt stack 0
+  1918                           pclatu	equ	0xFFB
+  1919                           pclath	equ	0xFFA
+  1920                           tblptru	equ	0xFF8
+  1921                           tblptrh	equ	0xFF7
+  1922                           tblptrl	equ	0xFF6
+  1923                           tablat	equ	0xFF5
+  1924                           prodh	equ	0xFF4
+  1925                           prodl	equ	0xFF3
+  1926                           intcon	equ	0xFF2
+  1927                           intcon2	equ	0xFF1
+  1928                           postinc0	equ	0xFEE
+  1929                           fsr0h	equ	0xFEA
+  1930                           fsr0l	equ	0xFE9
+  1931                           wreg	equ	0xFE8
+  1932                           postdec1	equ	0xFE5
+  1933                           fsr1h	equ	0xFE2
+  1934                           fsr1l	equ	0xFE1
+  1935                           indf2	equ	0xFDF
+  1936                           postinc2	equ	0xFDE
+  1937                           postdec2	equ	0xFDD
+  1938                           fsr2h	equ	0xFDA
+  1939                           fsr2l	equ	0xFD9
+  1940                           status	equ	0xFD8
+  1941                           
+  1942 ;; *************** function _RF433_transmit *****************
+  1943 ;; Defined at:
+  1944 ;;		line 21 in file "RF433.c"
+  1945 ;; Parameters:    Size  Location     Type
+  1946 ;;		None
+  1947 ;; Auto vars:     Size  Location     Type
+  1948 ;;		None
+  1949 ;; Return value:  Size  Location     Type
+  1950 ;;		None               void
+  1951 ;; Registers used:
+  1952 ;;		wreg, status,2, status,0, cstack
+  1953 ;; Tracked objects:
+  1954 ;;		On entry : 0/0
+  1955 ;;		On exit  : 0/0
+  1956 ;;		Unchanged: 0/0
+  1957 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  1958 ;;      Params:         0       0       0       0       0       0       0       0       0
+  1959 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  1960 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  1961 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  1962 ;;Total ram usage:        0 bytes
+  1963 ;; Hardware stack levels used:    1
+  1964 ;; Hardware stack levels required when called:    3
+  1965 ;; This function calls:
+  1966 ;;		_CyclicBitBuffer_resetRead
+  1967 ;;		_Delay100TCYx
+  1968 ;;		_Delay1KTCYx
+  1969 ;; This function is called by:
+  1970 ;;		_main
+  1971 ;; This function uses a non-reentrant model
+  1972 ;;
+  1973                           
+  1974                           	psect	text12
+  1975  000530                     __ptext12:
+  1976                           	opt stack 0
+  1977  000530                     _RF433_transmit:
+  1978                           	opt stack 26
+  1979                           
+  1980                           ;RF433.c: 23: LATBbits.LATB2 = 1;
+  1981                           
+  1982                           ;incstack = 0
+  1983  000530  848A               	bsf	3978,2,c	;volatile
+  1984                           
+  1985                           ;RF433.c: 24: ( Delay1KTCYx( (unsigned char) 192));
+  1986  000532  0EC0               	movlw	192
+  1987  000534  EC39  F003         	call	_Delay1KTCYx
+  1988                           
+  1989                           ;RF433.c: 26: CyclicBitBuffer_resetRead();
+  1990  000538  EC57  F003         	call	_CyclicBitBuffer_resetRead	;wreg free
+  1991                           
+  1992                           ;RF433.c: 27: CyclicBitBuffer_flags.transmit = 1;
+  1993  00053C  843F               	bsf	_CyclicBitBuffer_flags,2,c
+  1994                           
+  1995                           ;RF433.c: 28: LATBbits.LATB3 = 0;
+  1996  00053E  968A               	bcf	3978,3,c	;volatile
+  1997                           
+  1998                           ;RF433.c: 29: (INTCONbits.TMR0IE = 1);
+  1999  000540  8AF2               	bsf	intcon,5,c	;volatile
+  2000  000542                     l165:
+  2001  000542  B43F               	btfsc	_CyclicBitBuffer_flags,2,c
+  2002  000544  D7FE               	goto	l165
+  2003                           
+  2004                           ;RF433.c: 34: LATBbits.LATB3 = 0;
+  2005  000546  968A               	bcf	3978,3,c	;volatile
+  2006                           
+  2007                           ;RF433.c: 37: LATBbits.LATB2 = 0;
+  2008  000548  948A               	bcf	3978,2,c	;volatile
+  2009                           
+  2010                           ;RF433.c: 38: ( Delay100TCYx((unsigned char) 192 ));
+  2011  00054A  0EC0               	movlw	192
+  2012  00054C  EC41  F003         	call	_Delay100TCYx
+  2013                           
+  2014                           ;RF433.c: 39: LATBbits.LATB1 = 0;
+  2015  000550  928A               	bcf	3978,1,c	;volatile
+  2016                           
+  2017                           ;RF433.c: 40: ( Delay100TCYx((unsigned char) 192 ));
+  2018  000552  0EC0               	movlw	192
+  2019  000554  EC41  F003         	call	_Delay100TCYx
+  2020                           
+  2021                           ;RF433.c: 41: LATBbits.LATB1 = 1;
+  2022  000558  828A               	bsf	3978,1,c	;volatile
+  2023                           
+  2024                           ;RF433.c: 42: ( Delay1KTCYx( (unsigned char) 96));
+  2025  00055A  0E60               	movlw	96
+  2026  00055C  EC39  F003         	call	_Delay1KTCYx
+  2027  000560  0012               	return	
+  2028  000562                     __end_of_RF433_transmit:
+  2029                           	opt stack 0
+  2030                           pclatu	equ	0xFFB
+  2031                           pclath	equ	0xFFA
+  2032                           tblptru	equ	0xFF8
+  2033                           tblptrh	equ	0xFF7
+  2034                           tblptrl	equ	0xFF6
+  2035                           tablat	equ	0xFF5
+  2036                           prodh	equ	0xFF4
+  2037                           prodl	equ	0xFF3
+  2038                           intcon	equ	0xFF2
+  2039                           intcon2	equ	0xFF1
+  2040                           postinc0	equ	0xFEE
+  2041                           fsr0h	equ	0xFEA
+  2042                           fsr0l	equ	0xFE9
+  2043                           wreg	equ	0xFE8
+  2044                           postdec1	equ	0xFE5
+  2045                           fsr1h	equ	0xFE2
+  2046                           fsr1l	equ	0xFE1
+  2047                           indf2	equ	0xFDF
+  2048                           postinc2	equ	0xFDE
+  2049                           postdec2	equ	0xFDD
+  2050                           fsr2h	equ	0xFDA
+  2051                           fsr2l	equ	0xFD9
+  2052                           status	equ	0xFD8
+  2053                           
+  2054 ;; *************** function _RF433_receive *****************
+  2055 ;; Defined at:
+  2056 ;;		line 45 in file "RF433.c"
+  2057 ;; Parameters:    Size  Location     Type
+  2058 ;;  bufferLength    2   35[COMRAM] PTR unsigned short 
+  2059 ;;		 -> main@frame(5), 
+  2060 ;; Auto vars:     Size  Location     Type
+  2061 ;;		None
+  2062 ;; Return value:  Size  Location     Type
+  2063 ;;                  2   35[COMRAM] PTR unsigned char 
+  2064 ;; Registers used:
+  2065 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+  2066 ;; Tracked objects:
+  2067 ;;		On entry : 0/0
+  2068 ;;		On exit  : 0/0
+  2069 ;;		Unchanged: 0/0
+  2070 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2071 ;;      Params:         2       0       0       0       0       0       0       0       0
+  2072 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2073 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2074 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  2075 ;;Total ram usage:        2 bytes
+  2076 ;; Hardware stack levels used:    1
+  2077 ;; Hardware stack levels required when called:    4
+  2078 ;; This function calls:
+  2079 ;;		_CyclicBitBuffer_getBuffer
+  2080 ;;		_CyclicBitBuffer_reset
+  2081 ;; This function is called by:
+  2082 ;;		_main
+  2083 ;; This function uses a non-reentrant model
+  2084 ;;
+  2085                           
+  2086                           	psect	text13
+  2087  000562                     __ptext13:
+  2088                           	opt stack 0
+  2089  000562                     _RF433_receive:
+  2090                           	opt stack 25
+  2091                           
+  2092                           ;RF433.c: 47: CyclicBitBuffer_reset();
+  2093                           
+  2094                           ;incstack = 0
+  2095  000562  EC6A  F003         	call	_CyclicBitBuffer_reset	;wreg free
+  2096                           
+  2097                           ;RF433.c: 48: CyclicBitBuffer_flags.record = 1;
+  2098  000566  823F               	bsf	_CyclicBitBuffer_flags,1,c
+  2099                           
+  2100                           ;RF433.c: 49: LATBbits.LATB3 = 0;
+  2101  000568  968A               	bcf	3978,3,c	;volatile
+  2102                           
+  2103                           ;RF433.c: 50: (INTCONbits.TMR0IE = 1);
+  2104  00056A  8AF2               	bsf	intcon,5,c	;volatile
+  2105  00056C                     l171:
+  2106  00056C  B23F               	btfsc	_CyclicBitBuffer_flags,1,c
+  2107  00056E  D7FE               	goto	l171
+  2108                           
+  2109                           ;RF433.c: 55: (*bufferLength) = ((unsigned short)1537);
+  2110  000570  C024  FFD9         	movff	RF433_receive@bufferLength,fsr2l
+  2111  000574  C025  FFDA         	movff	RF433_receive@bufferLength+1,fsr2h
+  2112  000578  0E01               	movlw	1
+  2113  00057A  6EDE               	movwf	postinc2,c
+  2114  00057C  0E06               	movlw	6
+  2115  00057E  6EDD               	movwf	postdec2,c
+  2116                           
+  2117                           ;RF433.c: 56: return CyclicBitBuffer_getBuffer();
+  2118  000580  EC6F  F003         	call	_CyclicBitBuffer_getBuffer	;wreg free
+  2119  000584  C022  F024         	movff	?_CyclicBitBuffer_getBuffer,?_RF433_receive
+  2120  000588  C023  F025         	movff	?_CyclicBitBuffer_getBuffer+1,?_RF433_receive+1
+  2121  00058C  0012               	return	
+  2122  00058E                     __end_of_RF433_receive:
+  2123                           	opt stack 0
+  2124                           pclatu	equ	0xFFB
+  2125                           pclath	equ	0xFFA
+  2126                           tblptru	equ	0xFF8
+  2127                           tblptrh	equ	0xFF7
+  2128                           tblptrl	equ	0xFF6
+  2129                           tablat	equ	0xFF5
+  2130                           prodh	equ	0xFF4
+  2131                           prodl	equ	0xFF3
+  2132                           intcon	equ	0xFF2
+  2133                           intcon2	equ	0xFF1
+  2134                           postinc0	equ	0xFEE
+  2135                           fsr0h	equ	0xFEA
+  2136                           fsr0l	equ	0xFE9
+  2137                           wreg	equ	0xFE8
+  2138                           postdec1	equ	0xFE5
+  2139                           fsr1h	equ	0xFE2
+  2140                           fsr1l	equ	0xFE1
+  2141                           indf2	equ	0xFDF
+  2142                           postinc2	equ	0xFDE
+  2143                           postdec2	equ	0xFDD
+  2144                           fsr2h	equ	0xFDA
+  2145                           fsr2l	equ	0xFD9
+  2146                           status	equ	0xFD8
+  2147                           
+  2148 ;; *************** function _CyclicBitBuffer_reset *****************
+  2149 ;; Defined at:
+  2150 ;;		line 26 in file "CyclicBitBuffer.c"
+  2151 ;; Parameters:    Size  Location     Type
+  2152 ;;		None
+  2153 ;; Auto vars:     Size  Location     Type
+  2154 ;;		None
+  2155 ;; Return value:  Size  Location     Type
+  2156 ;;		None               void
+  2157 ;; Registers used:
+  2158 ;;		wreg, status,2, status,0, cstack
+  2159 ;; Tracked objects:
+  2160 ;;		On entry : 0/0
+  2161 ;;		On exit  : 0/0
+  2162 ;;		Unchanged: 0/0
+  2163 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2164 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2165 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2166 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2167 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2168 ;;Total ram usage:        0 bytes
+  2169 ;; Hardware stack levels used:    1
+  2170 ;; Hardware stack levels required when called:    3
+  2171 ;; This function calls:
+  2172 ;;		_CyclicBitBuffer_resetRead
+  2173 ;;		_CyclicBitBuffer_resetWrite
+  2174 ;; This function is called by:
+  2175 ;;		_main
+  2176 ;;		_RF433_receive
+  2177 ;; This function uses a non-reentrant model
+  2178 ;;
+  2179                           
+  2180                           	psect	text14
+  2181  0006D4                     __ptext14:
+  2182                           	opt stack 0
+  2183  0006D4                     _CyclicBitBuffer_reset:
+  2184                           	opt stack 25
+  2185                           
+  2186                           ;CyclicBitBuffer.c: 27: CyclicBitBuffer_resetRead();
+  2187                           
+  2188                           ;incstack = 0
+  2189  0006D4  EC57  F003         	call	_CyclicBitBuffer_resetRead	;wreg free
+  2190                           
+  2191                           ;CyclicBitBuffer.c: 28: CyclicBitBuffer_resetWrite();
+  2192  0006D8  EC50  F003         	call	_CyclicBitBuffer_resetWrite	;wreg free
+  2193  0006DC  0012               	return	
+  2194  0006DE                     __end_of_CyclicBitBuffer_reset:
+  2195                           	opt stack 0
+  2196                           pclatu	equ	0xFFB
+  2197                           pclath	equ	0xFFA
+  2198                           tblptru	equ	0xFF8
+  2199                           tblptrh	equ	0xFF7
+  2200                           tblptrl	equ	0xFF6
+  2201                           tablat	equ	0xFF5
+  2202                           prodh	equ	0xFF4
+  2203                           prodl	equ	0xFF3
+  2204                           intcon	equ	0xFF2
+  2205                           intcon2	equ	0xFF1
+  2206                           postinc0	equ	0xFEE
+  2207                           fsr0h	equ	0xFEA
+  2208                           fsr0l	equ	0xFE9
+  2209                           wreg	equ	0xFE8
+  2210                           postdec1	equ	0xFE5
+  2211                           fsr1h	equ	0xFE2
+  2212                           fsr1l	equ	0xFE1
+  2213                           indf2	equ	0xFDF
+  2214                           postinc2	equ	0xFDE
+  2215                           postdec2	equ	0xFDD
+  2216                           fsr2h	equ	0xFDA
+  2217                           fsr2l	equ	0xFD9
+  2218                           status	equ	0xFD8
+  2219                           
+  2220 ;; *************** function _CyclicBitBuffer_resetWrite *****************
+  2221 ;; Defined at:
+  2222 ;;		line 21 in file "CyclicBitBuffer.c"
+  2223 ;; Parameters:    Size  Location     Type
+  2224 ;;		None
+  2225 ;; Auto vars:     Size  Location     Type
+  2226 ;;		None
+  2227 ;; Return value:  Size  Location     Type
+  2228 ;;		None               void
+  2229 ;; Registers used:
+  2230 ;;		wreg, status,2, status,0
+  2231 ;; Tracked objects:
+  2232 ;;		On entry : 0/0
+  2233 ;;		On exit  : 0/0
+  2234 ;;		Unchanged: 0/0
+  2235 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2236 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2237 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2238 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2239 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2240 ;;Total ram usage:        0 bytes
+  2241 ;; Hardware stack levels used:    1
+  2242 ;; Hardware stack levels required when called:    2
+  2243 ;; This function calls:
+  2244 ;;		Nothing
+  2245 ;; This function is called by:
+  2246 ;;		_CyclicBitBuffer_reset
+  2247 ;; This function uses a non-reentrant model
+  2248 ;;
+  2249                           
+  2250                           	psect	text15
+  2251  0006A0                     __ptext15:
+  2252                           	opt stack 0
+  2253  0006A0                     _CyclicBitBuffer_resetWrite:
+  2254                           	opt stack 25
+  2255                           
+  2256                           ;CyclicBitBuffer.c: 22: writeBitIndex = 1;
+  2257                           
+  2258                           ;incstack = 0
+  2259  0006A0  0E01               	movlw	1
+  2260  0006A2  6E44               	movwf	_writeBitIndex,c
+  2261                           
+  2262                           ;CyclicBitBuffer.c: 23: writeByteIndex = CyclicBitBuffer_buffer;
+  2263  0006A4  0E01               	movlw	high _CyclicBitBuffer_buffer
+  2264  0006A6  6E3E               	movwf	_writeByteIndex+1,c
+  2265  0006A8  0EFF               	movlw	low _CyclicBitBuffer_buffer
+  2266  0006AA  6E3D               	movwf	_writeByteIndex,c
+  2267  0006AC  0012               	return	
+  2268  0006AE                     __end_of_CyclicBitBuffer_resetWrite:
+  2269                           	opt stack 0
+  2270                           pclatu	equ	0xFFB
+  2271                           pclath	equ	0xFFA
+  2272                           tblptru	equ	0xFF8
+  2273                           tblptrh	equ	0xFF7
+  2274                           tblptrl	equ	0xFF6
+  2275                           tablat	equ	0xFF5
+  2276                           prodh	equ	0xFF4
+  2277                           prodl	equ	0xFF3
+  2278                           intcon	equ	0xFF2
+  2279                           intcon2	equ	0xFF1
+  2280                           postinc0	equ	0xFEE
+  2281                           fsr0h	equ	0xFEA
+  2282                           fsr0l	equ	0xFE9
+  2283                           wreg	equ	0xFE8
+  2284                           postdec1	equ	0xFE5
+  2285                           fsr1h	equ	0xFE2
+  2286                           fsr1l	equ	0xFE1
+  2287                           indf2	equ	0xFDF
+  2288                           postinc2	equ	0xFDE
+  2289                           postdec2	equ	0xFDD
+  2290                           fsr2h	equ	0xFDA
+  2291                           fsr2l	equ	0xFD9
+  2292                           status	equ	0xFD8
+  2293                           
+  2294 ;; *************** function _CyclicBitBuffer_resetRead *****************
+  2295 ;; Defined at:
+  2296 ;;		line 16 in file "CyclicBitBuffer.c"
+  2297 ;; Parameters:    Size  Location     Type
+  2298 ;;		None
+  2299 ;; Auto vars:     Size  Location     Type
+  2300 ;;		None
+  2301 ;; Return value:  Size  Location     Type
+  2302 ;;		None               void
+  2303 ;; Registers used:
+  2304 ;;		wreg, status,2, status,0
+  2305 ;; Tracked objects:
+  2306 ;;		On entry : 0/0
+  2307 ;;		On exit  : 0/0
+  2308 ;;		Unchanged: 0/0
+  2309 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2310 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2311 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2312 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2313 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2314 ;;Total ram usage:        0 bytes
+  2315 ;; Hardware stack levels used:    1
+  2316 ;; Hardware stack levels required when called:    2
+  2317 ;; This function calls:
+  2318 ;;		Nothing
+  2319 ;; This function is called by:
+  2320 ;;		_CyclicBitBuffer_reset
+  2321 ;;		_RF433_transmit
+  2322 ;; This function uses a non-reentrant model
+  2323 ;;
+  2324                           
+  2325                           	psect	text16
+  2326  0006AE                     __ptext16:
+  2327                           	opt stack 0
+  2328  0006AE                     _CyclicBitBuffer_resetRead:
+  2329                           	opt stack 26
+  2330                           
+  2331                           ;CyclicBitBuffer.c: 17: readBitIndex = 1;
+  2332                           
+  2333                           ;incstack = 0
+  2334  0006AE  0E01               	movlw	1
+  2335  0006B0  6E43               	movwf	_readBitIndex,c
+  2336                           
+  2337                           ;CyclicBitBuffer.c: 18: readByteIndex = CyclicBitBuffer_buffer;
+  2338  0006B2  0E01               	movlw	high _CyclicBitBuffer_buffer
+  2339  0006B4  6E3A               	movwf	_readByteIndex+1,c
+  2340  0006B6  0EFF               	movlw	low _CyclicBitBuffer_buffer
+  2341  0006B8  6E39               	movwf	_readByteIndex,c
+  2342  0006BA  0012               	return	
+  2343  0006BC                     __end_of_CyclicBitBuffer_resetRead:
+  2344                           	opt stack 0
+  2345                           pclatu	equ	0xFFB
+  2346                           pclath	equ	0xFFA
+  2347                           tblptru	equ	0xFF8
+  2348                           tblptrh	equ	0xFF7
+  2349                           tblptrl	equ	0xFF6
+  2350                           tablat	equ	0xFF5
+  2351                           prodh	equ	0xFF4
+  2352                           prodl	equ	0xFF3
+  2353                           intcon	equ	0xFF2
+  2354                           intcon2	equ	0xFF1
+  2355                           postinc0	equ	0xFEE
+  2356                           fsr0h	equ	0xFEA
+  2357                           fsr0l	equ	0xFE9
+  2358                           wreg	equ	0xFE8
+  2359                           postdec1	equ	0xFE5
+  2360                           fsr1h	equ	0xFE2
+  2361                           fsr1l	equ	0xFE1
+  2362                           indf2	equ	0xFDF
+  2363                           postinc2	equ	0xFDE
+  2364                           postdec2	equ	0xFDD
+  2365                           fsr2h	equ	0xFDA
+  2366                           fsr2l	equ	0xFD9
+  2367                           status	equ	0xFD8
+  2368                           
+  2369 ;; *************** function _CyclicBitBuffer_getBuffer *****************
+  2370 ;; Defined at:
+  2371 ;;		line 12 in file "CyclicBitBuffer.c"
+  2372 ;; Parameters:    Size  Location     Type
+  2373 ;;		None
+  2374 ;; Auto vars:     Size  Location     Type
+  2375 ;;		None
+  2376 ;; Return value:  Size  Location     Type
+  2377 ;;                  2   33[COMRAM] PTR unsigned char 
+  2378 ;; Registers used:
+  2379 ;;		wreg, status,2, status,0
+  2380 ;; Tracked objects:
+  2381 ;;		On entry : 0/0
+  2382 ;;		On exit  : 0/0
+  2383 ;;		Unchanged: 0/0
+  2384 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2385 ;;      Params:         2       0       0       0       0       0       0       0       0
+  2386 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2387 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2388 ;;      Totals:         2       0       0       0       0       0       0       0       0
+  2389 ;;Total ram usage:        2 bytes
+  2390 ;; Hardware stack levels used:    1
+  2391 ;; Hardware stack levels required when called:    2
+  2392 ;; This function calls:
+  2393 ;;		Nothing
+  2394 ;; This function is called by:
+  2395 ;;		_main
+  2396 ;;		_RF433_receive
+  2397 ;; This function uses a non-reentrant model
+  2398 ;;
+  2399                           
+  2400                           	psect	text17
+  2401  0006DE                     __ptext17:
+  2402                           	opt stack 0
+  2403  0006DE                     _CyclicBitBuffer_getBuffer:
+  2404                           	opt stack 26
+  2405                           
+  2406                           ;CyclicBitBuffer.c: 13: return CyclicBitBuffer_buffer;
+  2407                           
+  2408                           ;incstack = 0
+  2409  0006DE  0E01               	movlw	high _CyclicBitBuffer_buffer
+  2410  0006E0  6E23               	movwf	?_CyclicBitBuffer_getBuffer+1,c
+  2411  0006E2  0EFF               	movlw	low _CyclicBitBuffer_buffer
+  2412  0006E4  6E22               	movwf	?_CyclicBitBuffer_getBuffer,c
+  2413  0006E6  0012               	return	
+  2414  0006E8                     __end_of_CyclicBitBuffer_getBuffer:
+  2415                           	opt stack 0
+  2416                           pclatu	equ	0xFFB
+  2417                           pclath	equ	0xFFA
+  2418                           tblptru	equ	0xFF8
+  2419                           tblptrh	equ	0xFF7
+  2420                           tblptrl	equ	0xFF6
+  2421                           tablat	equ	0xFF5
+  2422                           prodh	equ	0xFF4
+  2423                           prodl	equ	0xFF3
+  2424                           intcon	equ	0xFF2
+  2425                           intcon2	equ	0xFF1
+  2426                           postinc0	equ	0xFEE
+  2427                           fsr0h	equ	0xFEA
+  2428                           fsr0l	equ	0xFE9
+  2429                           wreg	equ	0xFE8
+  2430                           postdec1	equ	0xFE5
+  2431                           fsr1h	equ	0xFE2
+  2432                           fsr1l	equ	0xFE1
+  2433                           indf2	equ	0xFDF
+  2434                           postinc2	equ	0xFDE
+  2435                           postdec2	equ	0xFDD
+  2436                           fsr2h	equ	0xFDA
+  2437                           fsr2l	equ	0xFD9
+  2438                           status	equ	0xFD8
+  2439                           
+  2440 ;; *************** function _RF433_init *****************
+  2441 ;; Defined at:
+  2442 ;;		line 5 in file "RF433.c"
+  2443 ;; Parameters:    Size  Location     Type
+  2444 ;;		None
+  2445 ;; Auto vars:     Size  Location     Type
+  2446 ;;		None
+  2447 ;; Return value:  Size  Location     Type
+  2448 ;;                  2   14[COMRAM] int 
+  2449 ;; Registers used:
+  2450 ;;		wreg, cstack
+  2451 ;; Tracked objects:
+  2452 ;;		On entry : 0/0
+  2453 ;;		On exit  : 0/0
+  2454 ;;		Unchanged: 0/0
+  2455 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2456 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2457 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2458 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2459 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2460 ;;Total ram usage:        0 bytes
+  2461 ;; Hardware stack levels used:    1
+  2462 ;; Hardware stack levels required when called:    3
+  2463 ;; This function calls:
+  2464 ;;		_Delay100TCYx
+  2465 ;;		_Delay1KTCYx
+  2466 ;; This function is called by:
+  2467 ;;		_main
+  2468 ;; This function uses a non-reentrant model
+  2469 ;;
+  2470                           
+  2471                           	psect	text18
+  2472  00058E                     __ptext18:
+  2473                           	opt stack 0
+  2474  00058E                     _RF433_init:
+  2475                           	opt stack 26
+  2476                           
+  2477                           ;RF433.c: 6: LATBbits.LATB3 = 0;
+  2478                           
+  2479                           ;incstack = 0
+  2480  00058E  968A               	bcf	3978,3,c	;volatile
+  2481                           
+  2482                           ;RF433.c: 8: LATBbits.LATB1 = 1;
+  2483  000590  828A               	bsf	3978,1,c	;volatile
+  2484                           
+  2485                           ;RF433.c: 9: ( Delay100TCYx( (unsigned char) 96));
+  2486  000592  0E60               	movlw	96
+  2487  000594  EC41  F003         	call	_Delay100TCYx
+  2488                           
+  2489                           ;RF433.c: 10: LATBbits.LATB2 = 1;
+  2490  000598  848A               	bsf	3978,2,c	;volatile
+  2491                           
+  2492                           ;RF433.c: 11: ( Delay1KTCYx( (unsigned char) 96));
+  2493  00059A  0E60               	movlw	96
+  2494  00059C  EC39  F003         	call	_Delay1KTCYx
+  2495                           
+  2496                           ;RF433.c: 12: LATBbits.LATB2 = 0;
+  2497  0005A0  948A               	bcf	3978,2,c	;volatile
+  2498                           
+  2499                           ;RF433.c: 13: ( Delay100TCYx((unsigned char) 192 ));
+  2500  0005A2  0EC0               	movlw	192
+  2501  0005A4  EC41  F003         	call	_Delay100TCYx
+  2502                           
+  2503                           ;RF433.c: 14: LATBbits.LATB1 = 0;
+  2504  0005A8  928A               	bcf	3978,1,c	;volatile
+  2505                           
+  2506                           ;RF433.c: 15: ( Delay1KTCYx( (unsigned char) 96));
+  2507  0005AA  0E60               	movlw	96
+  2508  0005AC  EC39  F003         	call	_Delay1KTCYx
+  2509                           
+  2510                           ;RF433.c: 16: LATBbits.LATB1 = 1;
+  2511  0005B0  828A               	bsf	3978,1,c	;volatile
+  2512                           
+  2513                           ;RF433.c: 17: ( Delay1KTCYx( (unsigned char) 96));
+  2514  0005B2  0E60               	movlw	96
+  2515  0005B4  EC39  F003         	call	_Delay1KTCYx
+  2516  0005B8  0012               	return	
+  2517  0005BA                     __end_of_RF433_init:
+  2518                           	opt stack 0
+  2519                           pclatu	equ	0xFFB
+  2520                           pclath	equ	0xFFA
+  2521                           tblptru	equ	0xFF8
+  2522                           tblptrh	equ	0xFF7
+  2523                           tblptrl	equ	0xFF6
+  2524                           tablat	equ	0xFF5
+  2525                           prodh	equ	0xFF4
+  2526                           prodl	equ	0xFF3
+  2527                           intcon	equ	0xFF2
+  2528                           intcon2	equ	0xFF1
+  2529                           postinc0	equ	0xFEE
+  2530                           fsr0h	equ	0xFEA
+  2531                           fsr0l	equ	0xFE9
+  2532                           wreg	equ	0xFE8
+  2533                           postdec1	equ	0xFE5
+  2534                           fsr1h	equ	0xFE2
+  2535                           fsr1l	equ	0xFE1
+  2536                           indf2	equ	0xFDF
+  2537                           postinc2	equ	0xFDE
+  2538                           postdec2	equ	0xFDD
+  2539                           fsr2h	equ	0xFDA
+  2540                           fsr2l	equ	0xFD9
+  2541                           status	equ	0xFD8
+  2542                           
+  2543 ;; *************** function _Delay1KTCYx *****************
+  2544 ;; Defined at:
+  2545 ;;		line 8 in file "/opt/microchip/xc8/v1.32/sources/pic18/d1ktcyx.c"
+  2546 ;; Parameters:    Size  Location     Type
+  2547 ;;  unit            1    wreg     unsigned char 
+  2548 ;; Auto vars:     Size  Location     Type
+  2549 ;;  unit            1   33[COMRAM] unsigned char 
+  2550 ;; Return value:  Size  Location     Type
+  2551 ;;		None               void
+  2552 ;; Registers used:
+  2553 ;;		wreg
+  2554 ;; Tracked objects:
+  2555 ;;		On entry : 0/0
+  2556 ;;		On exit  : 0/0
+  2557 ;;		Unchanged: 0/0
+  2558 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2559 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2560 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  2561 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2562 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  2563 ;;Total ram usage:        1 bytes
+  2564 ;; Hardware stack levels used:    1
+  2565 ;; Hardware stack levels required when called:    2
+  2566 ;; This function calls:
+  2567 ;;		Nothing
+  2568 ;; This function is called by:
+  2569 ;;		_RF433_init
+  2570 ;;		_RF433_transmit
+  2571 ;; This function uses a non-reentrant model
+  2572 ;;
+  2573                           
+  2574                           	psect	text19
+  2575  000672                     __ptext19:
+  2576                           	opt stack 0
+  2577  000672                     _Delay1KTCYx:
+  2578                           	opt stack 26
+  2579                           
+  2580                           ;incstack = 0
+  2581                           ;Delay1KTCYx@unit stored from wreg
+  2582  000672  6E22               	movwf	Delay1KTCYx@unit,c
+  2583  000674                     l556:
+  2584  000674  0EFA               	movlw	250
+  2585  000676                     u487:
+  2586  000676  F000               	nop	
+  2587  000678  2EE8               	decfsz	wreg,f,c
+  2588  00067A  D7FD               	goto	u487
+  2589  00067C  2E22               	decfsz	Delay1KTCYx@unit,f,c
+  2590  00067E  D7FA               	goto	l556
+  2591  000680  0012               	return	
+  2592  000682                     __end_of_Delay1KTCYx:
+  2593                           	opt stack 0
+  2594                           pclatu	equ	0xFFB
+  2595                           pclath	equ	0xFFA
+  2596                           tblptru	equ	0xFF8
+  2597                           tblptrh	equ	0xFF7
+  2598                           tblptrl	equ	0xFF6
+  2599                           tablat	equ	0xFF5
+  2600                           prodh	equ	0xFF4
+  2601                           prodl	equ	0xFF3
+  2602                           intcon	equ	0xFF2
+  2603                           intcon2	equ	0xFF1
+  2604                           postinc0	equ	0xFEE
+  2605                           fsr0h	equ	0xFEA
+  2606                           fsr0l	equ	0xFE9
+  2607                           wreg	equ	0xFE8
+  2608                           postdec1	equ	0xFE5
+  2609                           fsr1h	equ	0xFE2
+  2610                           fsr1l	equ	0xFE1
+  2611                           indf2	equ	0xFDF
+  2612                           postinc2	equ	0xFDE
+  2613                           postdec2	equ	0xFDD
+  2614                           fsr2h	equ	0xFDA
+  2615                           fsr2l	equ	0xFD9
+  2616                           status	equ	0xFD8
+  2617                           
+  2618 ;; *************** function _Delay100TCYx *****************
+  2619 ;; Defined at:
+  2620 ;;		line 8 in file "/opt/microchip/xc8/v1.32/sources/pic18/d100tcyx.c"
+  2621 ;; Parameters:    Size  Location     Type
+  2622 ;;  unit            1    wreg     unsigned char 
+  2623 ;; Auto vars:     Size  Location     Type
+  2624 ;;  unit            1   33[COMRAM] unsigned char 
+  2625 ;; Return value:  Size  Location     Type
+  2626 ;;		None               void
+  2627 ;; Registers used:
+  2628 ;;		wreg
+  2629 ;; Tracked objects:
+  2630 ;;		On entry : 0/0
+  2631 ;;		On exit  : 0/0
+  2632 ;;		Unchanged: 0/0
+  2633 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2634 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2635 ;;      Locals:         1       0       0       0       0       0       0       0       0
+  2636 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2637 ;;      Totals:         1       0       0       0       0       0       0       0       0
+  2638 ;;Total ram usage:        1 bytes
+  2639 ;; Hardware stack levels used:    1
+  2640 ;; Hardware stack levels required when called:    2
+  2641 ;; This function calls:
+  2642 ;;		Nothing
+  2643 ;; This function is called by:
+  2644 ;;		_RF433_init
+  2645 ;;		_RF433_transmit
+  2646 ;; This function uses a non-reentrant model
+  2647 ;;
+  2648                           
+  2649                           	psect	text20
+  2650  000682                     __ptext20:
+  2651                           	opt stack 0
+  2652  000682                     _Delay100TCYx:
+  2653                           	opt stack 26
+  2654                           
+  2655                           ;incstack = 0
+  2656                           ;Delay100TCYx@unit stored from wreg
+  2657  000682  6E22               	movwf	Delay100TCYx@unit,c
+  2658  000684                     l549:
+  2659  000684  0E21               	movlw	33
+  2660  000686                     u497:
+  2661  000686  2EE8               	decfsz	wreg,f,c
+  2662  000688  D7FE               	goto	u497
+  2663  00068A  F000               	nop	
+  2664  00068C  2E22               	decfsz	Delay100TCYx@unit,f,c
+  2665  00068E  D7FA               	goto	l549
+  2666  000690  0012               	return	
+  2667  000692                     __end_of_Delay100TCYx:
+  2668                           	opt stack 0
+  2669                           pclatu	equ	0xFFB
+  2670                           pclath	equ	0xFFA
+  2671                           tblptru	equ	0xFF8
+  2672                           tblptrh	equ	0xFF7
+  2673                           tblptrl	equ	0xFF6
+  2674                           tablat	equ	0xFF5
+  2675                           prodh	equ	0xFF4
+  2676                           prodl	equ	0xFF3
+  2677                           intcon	equ	0xFF2
+  2678                           intcon2	equ	0xFF1
+  2679                           postinc0	equ	0xFEE
+  2680                           fsr0h	equ	0xFEA
+  2681                           fsr0l	equ	0xFE9
+  2682                           wreg	equ	0xFE8
+  2683                           postdec1	equ	0xFE5
+  2684                           fsr1h	equ	0xFE2
+  2685                           fsr1l	equ	0xFE1
+  2686                           indf2	equ	0xFDF
+  2687                           postinc2	equ	0xFDE
+  2688                           postdec2	equ	0xFDD
+  2689                           fsr2h	equ	0xFDA
+  2690                           fsr2l	equ	0xFD9
+  2691                           status	equ	0xFD8
+  2692                           
+  2693 ;; *************** function _CyclicBitBuffer_clearEvent *****************
+  2694 ;; Defined at:
+  2695 ;;		line 31 in file "CyclicBitBuffer.c"
+  2696 ;; Parameters:    Size  Location     Type
+  2697 ;;		None
+  2698 ;; Auto vars:     Size  Location     Type
+  2699 ;;		None
+  2700 ;; Return value:  Size  Location     Type
+  2701 ;;		None               void
+  2702 ;; Registers used:
+  2703 ;;		None
+  2704 ;; Tracked objects:
+  2705 ;;		On entry : 0/0
+  2706 ;;		On exit  : 0/0
+  2707 ;;		Unchanged: 0/0
+  2708 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2709 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2710 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2711 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2712 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2713 ;;Total ram usage:        0 bytes
+  2714 ;; Hardware stack levels used:    1
+  2715 ;; Hardware stack levels required when called:    2
+  2716 ;; This function calls:
+  2717 ;;		Nothing
+  2718 ;; This function is called by:
+  2719 ;;		_main
+  2720 ;; This function uses a non-reentrant model
+  2721 ;;
+  2722                           
+  2723                           	psect	text21
+  2724  0006E8                     __ptext21:
+  2725                           	opt stack 0
+  2726  0006E8                     _CyclicBitBuffer_clearEvent:
+  2727                           	opt stack 27
+  2728                           
+  2729                           ;CyclicBitBuffer.c: 32: CyclicBitBuffer_flags.event = 0;
+  2730                           
+  2731                           ;incstack = 0
+  2732  0006E8  963F               	bcf	_CyclicBitBuffer_flags,3,c
+  2733                           
+  2734                           ;CyclicBitBuffer.c: 33: CyclicBitBuffer_flags.hasEvent = 0;
+  2735  0006EA  903F               	bcf	_CyclicBitBuffer_flags,0,c
+  2736  0006EC  0012               	return	
+  2737  0006EE                     __end_of_CyclicBitBuffer_clearEvent:
+  2738                           	opt stack 0
+  2739                           pclatu	equ	0xFFB
+  2740                           pclath	equ	0xFFA
+  2741                           tblptru	equ	0xFF8
+  2742                           tblptrh	equ	0xFF7
+  2743                           tblptrl	equ	0xFF6
+  2744                           tablat	equ	0xFF5
+  2745                           prodh	equ	0xFF4
+  2746                           prodl	equ	0xFF3
+  2747                           intcon	equ	0xFF2
+  2748                           intcon2	equ	0xFF1
+  2749                           postinc0	equ	0xFEE
+  2750                           fsr0h	equ	0xFEA
+  2751                           fsr0l	equ	0xFE9
+  2752                           wreg	equ	0xFE8
+  2753                           postdec1	equ	0xFE5
+  2754                           fsr1h	equ	0xFE2
+  2755                           fsr1l	equ	0xFE1
+  2756                           indf2	equ	0xFDF
+  2757                           postinc2	equ	0xFDE
+  2758                           postdec2	equ	0xFDD
+  2759                           fsr2h	equ	0xFDA
+  2760                           fsr2l	equ	0xFD9
+  2761                           status	equ	0xFD8
+  2762                           
+  2763 ;; *************** function i2_CyclicBitBuffer_resetRead *****************
+  2764 ;; Defined at:
+  2765 ;;		line 16 in file "CyclicBitBuffer.c"
+  2766 ;; Parameters:    Size  Location     Type
+  2767 ;;		None
+  2768 ;; Auto vars:     Size  Location     Type
+  2769 ;;		None
+  2770 ;; Return value:  Size  Location     Type
+  2771 ;;		None               void
+  2772 ;; Registers used:
+  2773 ;;		wreg, status,2, status,0
+  2774 ;; Tracked objects:
+  2775 ;;		On entry : 0/0
+  2776 ;;		On exit  : 0/0
+  2777 ;;		Unchanged: 0/0
+  2778 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2779 ;;      Params:         0       0       0       0       0       0       0       0       0
+  2780 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2781 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2782 ;;      Totals:         0       0       0       0       0       0       0       0       0
+  2783 ;;Total ram usage:        0 bytes
+  2784 ;; Hardware stack levels used:    1
+  2785 ;; This function calls:
+  2786 ;;		Nothing
+  2787 ;; This function is called by:
+  2788 ;;		_high_isr
+  2789 ;; This function uses a non-reentrant model
+  2790 ;;
+  2791                           
+  2792                           	psect	text23
+  2793  0006BC                     __ptext23:
+  2794                           	opt stack 0
+  2795  0006BC                     i2_CyclicBitBuffer_resetRead:
+  2796                           	opt stack 25
+  2797                           
+  2798                           ;CyclicBitBuffer.c: 17: readBitIndex = 1;
+  2799                           
+  2800                           ;incstack = 0
+  2801  0006BC  0E01               	movlw	1
+  2802  0006BE  6E43               	movwf	_readBitIndex,c
+  2803                           
+  2804                           ;CyclicBitBuffer.c: 18: readByteIndex = CyclicBitBuffer_buffer;
+  2805  0006C0  0E01               	movlw	high _CyclicBitBuffer_buffer
+  2806  0006C2  6E3A               	movwf	_readByteIndex+1,c
+  2807  0006C4  0EFF               	movlw	low _CyclicBitBuffer_buffer
+  2808  0006C6  6E39               	movwf	_readByteIndex,c
+  2809  0006C8  0012               	return	
+  2810  0006CA                     __end_ofi2_CyclicBitBuffer_resetRead:
+  2811                           	opt stack 0
+  2812                           pclatu	equ	0xFFB
+  2813                           pclath	equ	0xFFA
+  2814                           tblptru	equ	0xFF8
+  2815                           tblptrh	equ	0xFF7
+  2816                           tblptrl	equ	0xFF6
+  2817                           tablat	equ	0xFF5
+  2818                           prodh	equ	0xFF4
+  2819                           prodl	equ	0xFF3
+  2820                           intcon	equ	0xFF2
+  2821                           intcon2	equ	0xFF1
+  2822                           postinc0	equ	0xFEE
+  2823                           fsr0h	equ	0xFEA
+  2824                           fsr0l	equ	0xFE9
+  2825                           wreg	equ	0xFE8
+  2826                           postdec1	equ	0xFE5
+  2827                           fsr1h	equ	0xFE2
+  2828                           fsr1l	equ	0xFE1
+  2829                           indf2	equ	0xFDF
+  2830                           postinc2	equ	0xFDE
+  2831                           postdec2	equ	0xFDD
+  2832                           fsr2h	equ	0xFDA
+  2833                           fsr2l	equ	0xFD9
+  2834                           status	equ	0xFD8
+  2835                           
+  2836 ;; *************** function _WriteTimer0 *****************
+  2837 ;; Defined at:
+  2838 ;;		line 16 in file "/opt/microchip/xc8/v1.32/sources/pic18/plib/Timers/t0write.c"
+  2839 ;; Parameters:    Size  Location     Type
+  2840 ;;  timer0          2    0[COMRAM] unsigned int 
+  2841 ;; Auto vars:     Size  Location     Type
+  2842 ;;  timer           2    2[COMRAM] struct Timers
+  2843 ;; Return value:  Size  Location     Type
+  2844 ;;		None               void
+  2845 ;; Registers used:
+  2846 ;;		None
+  2847 ;; Tracked objects:
+  2848 ;;		On entry : 0/0
+  2849 ;;		On exit  : 0/0
+  2850 ;;		Unchanged: 0/0
+  2851 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2852 ;;      Params:         2       0       0       0       0       0       0       0       0
+  2853 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  2854 ;;      Temps:          0       0       0       0       0       0       0       0       0
+  2855 ;;      Totals:         4       0       0       0       0       0       0       0       0
+  2856 ;;Total ram usage:        4 bytes
+  2857 ;; Hardware stack levels used:    1
+  2858 ;; This function calls:
+  2859 ;;		Nothing
+  2860 ;; This function is called by:
+  2861 ;;		_high_isr
+  2862 ;; This function uses a non-reentrant model
+  2863 ;;
+  2864                           
+  2865                           	psect	text24
+  2866  000650                     __ptext24:
+  2867                           	opt stack 0
+  2868  000650                     _WriteTimer0:
+  2869                           	opt stack 25
+  2870                           
+  2871                           ;incstack = 0
+  2872  000650  C001  F003         	movff	WriteTimer0@timer0,WriteTimer0@timer
+  2873  000654  C002  F004         	movff	WriteTimer0@timer0+1,WriteTimer0@timer+1
+  2874  000658  C004  FFD7         	movff	WriteTimer0@timer+1,4055	;volatile
+  2875  00065C  C003  FFD6         	movff	WriteTimer0@timer,4054	;volatile
+  2876  000660  0012               	return	
+  2877  000662                     __end_of_WriteTimer0:
+  2878                           	opt stack 0
+  2879                           pclatu	equ	0xFFB
+  2880                           pclath	equ	0xFFA
+  2881                           tblptru	equ	0xFF8
+  2882                           tblptrh	equ	0xFF7
+  2883                           tblptrl	equ	0xFF6
+  2884                           tablat	equ	0xFF5
+  2885                           prodh	equ	0xFF4
+  2886                           prodl	equ	0xFF3
+  2887                           intcon	equ	0xFF2
+  2888                           intcon2	equ	0xFF1
+  2889                           postinc0	equ	0xFEE
+  2890                           fsr0h	equ	0xFEA
+  2891                           fsr0l	equ	0xFE9
+  2892                           wreg	equ	0xFE8
+  2893                           postdec1	equ	0xFE5
+  2894                           fsr1h	equ	0xFE2
+  2895                           fsr1l	equ	0xFE1
+  2896                           indf2	equ	0xFDF
+  2897                           postinc2	equ	0xFDE
+  2898                           postdec2	equ	0xFDD
+  2899                           fsr2h	equ	0xFDA
+  2900                           fsr2l	equ	0xFD9
+  2901                           status	equ	0xFD8
+  2902                           
+  2903 ;; *************** function _CyclicBitBuffer_write *****************
+  2904 ;; Defined at:
+  2905 ;;		line 53 in file "CyclicBitBuffer.c"
+  2906 ;; Parameters:    Size  Location     Type
+  2907 ;;  b               2    0[COMRAM] int 
+  2908 ;; Auto vars:     Size  Location     Type
+  2909 ;;		None
+  2910 ;; Return value:  Size  Location     Type
+  2911 ;;		None               void
+  2912 ;; Registers used:
+  2913 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+  2914 ;; Tracked objects:
+  2915 ;;		On entry : 0/0
+  2916 ;;		On exit  : 0/0
+  2917 ;;		Unchanged: 0/0
+  2918 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  2919 ;;      Params:         2       0       0       0       0       0       0       0       0
+  2920 ;;      Locals:         0       0       0       0       0       0       0       0       0
+  2921 ;;      Temps:          1       0       0       0       0       0       0       0       0
+  2922 ;;      Totals:         3       0       0       0       0       0       0       0       0
+  2923 ;;Total ram usage:        3 bytes
+  2924 ;; Hardware stack levels used:    1
+  2925 ;; This function calls:
+  2926 ;;		Nothing
+  2927 ;; This function is called by:
+  2928 ;;		_high_isr
+  2929 ;; This function uses a non-reentrant model
+  2930 ;;
+  2931                           
+  2932                           	psect	text25
+  2933  0004E6                     __ptext25:
+  2934                           	opt stack 0
+  2935  0004E6                     _CyclicBitBuffer_write:
+  2936                           	opt stack 25
+  2937                           
+  2938                           ;CyclicBitBuffer.c: 54: if(b) {
+  2939                           
+  2940                           ;incstack = 0
+  2941  0004E6  5002               	movf	CyclicBitBuffer_write@b+1,w,c
+  2942  0004E8  1001               	iorwf	CyclicBitBuffer_write@b,w,c
+  2943  0004EA  B4D8               	btfsc	status,2,c
+  2944  0004EC  D007               	goto	i2l1173
+  2945                           
+  2946                           ;CyclicBitBuffer.c: 55: (*writeByteIndex) |= writeBitIndex;
+  2947  0004EE  C03D  FFD9         	movff	_writeByteIndex,fsr2l
+  2948  0004F2  C03E  FFDA         	movff	_writeByteIndex+1,fsr2h
+  2949  0004F6  5044               	movf	_writeBitIndex,w,c
+  2950  0004F8  12DF               	iorwf	indf2,f,c
+  2951                           
+  2952                           ;CyclicBitBuffer.c: 56: } else {
+  2953  0004FA  D00E               	goto	i2l1175
+  2954  0004FC                     i2l1173:
+  2955                           
+  2956                           ;CyclicBitBuffer.c: 57: (*writeByteIndex) = (*writeByteIndex) & (writeBitIndex ^ 0xff);
+  2957  0004FC  C03D  FFD9         	movff	_writeByteIndex,fsr2l
+  2958  000500  C03E  FFDA         	movff	_writeByteIndex+1,fsr2h
+  2959  000504  50DF               	movf	indf2,w,c
+  2960  000506  6E03               	movwf	??_CyclicBitBuffer_write& (0+255),c
+  2961  000508  5044               	movf	_writeBitIndex,w,c
+  2962  00050A  0AFF               	xorlw	255
+  2963  00050C  1403               	andwf	??_CyclicBitBuffer_write,w,c
+  2964  00050E  C03D  FFD9         	movff	_writeByteIndex,fsr2l
+  2965  000512  C03E  FFDA         	movff	_writeByteIndex+1,fsr2h
+  2966  000516  6EDF               	movwf	indf2,c
+  2967  000518                     i2l1175:
+  2968                           
+  2969                           ;CyclicBitBuffer.c: 58: }
+  2970                           ;CyclicBitBuffer.c: 59: if(0x01 == writeBitIndex) {
+  2971  000518  0444               	decf	_writeBitIndex,w,c
+  2972  00051A  A4D8               	btfss	status,2,c
+  2973  00051C  D005               	goto	i2l1181
+  2974                           
+  2975                           ;CyclicBitBuffer.c: 60: writeBitIndex = 0x80;
+  2976  00051E  0E80               	movlw	128
+  2977  000520  6E44               	movwf	_writeBitIndex,c
+  2978                           
+  2979                           ;CyclicBitBuffer.c: 61: writeByteIndex++;
+  2980  000522  4A3D               	infsnz	_writeByteIndex,f,c
+  2981  000524  2A3E               	incf	_writeByteIndex+1,f,c
+  2982                           
+  2983                           ;CyclicBitBuffer.c: 62: } else {
+  2984  000526  0012               	return	
+  2985  000528                     i2l1181:
+  2986                           
+  2987                           ;CyclicBitBuffer.c: 63: writeBitIndex = writeBitIndex >> 1;
+  2988  000528  90D8               	bcf	status,0,c
+  2989  00052A  3044               	rrcf	_writeBitIndex,w,c
+  2990  00052C  6E44               	movwf	_writeBitIndex,c
+  2991  00052E  0012               	return	
+  2992  000530                     __end_of_CyclicBitBuffer_write:
+  2993                           	opt stack 0
+  2994                           pclatu	equ	0xFFB
+  2995                           pclath	equ	0xFFA
+  2996                           tblptru	equ	0xFF8
+  2997                           tblptrh	equ	0xFF7
+  2998                           tblptrl	equ	0xFF6
+  2999                           tablat	equ	0xFF5
+  3000                           prodh	equ	0xFF4
+  3001                           prodl	equ	0xFF3
+  3002                           intcon	equ	0xFF2
+  3003                           intcon2	equ	0xFF1
+  3004                           postinc0	equ	0xFEE
+  3005                           fsr0h	equ	0xFEA
+  3006                           fsr0l	equ	0xFE9
+  3007                           wreg	equ	0xFE8
+  3008                           postdec1	equ	0xFE5
+  3009                           fsr1h	equ	0xFE2
+  3010                           fsr1l	equ	0xFE1
+  3011                           indf2	equ	0xFDF
+  3012                           postinc2	equ	0xFDE
+  3013                           postdec2	equ	0xFDD
+  3014                           fsr2h	equ	0xFDA
+  3015                           fsr2l	equ	0xFD9
+  3016                           status	equ	0xFD8
+  3017                           
+  3018 ;; *************** function _CyclicBitBuffer_read *****************
+  3019 ;; Defined at:
+  3020 ;;		line 36 in file "CyclicBitBuffer.c"
+  3021 ;; Parameters:    Size  Location     Type
+  3022 ;;		None
+  3023 ;; Auto vars:     Size  Location     Type
+  3024 ;;  ret             2    3[COMRAM] int 
+  3025 ;; Return value:  Size  Location     Type
+  3026 ;;                  2    0[COMRAM] int 
+  3027 ;; Registers used:
+  3028 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+  3029 ;; Tracked objects:
+  3030 ;;		On entry : 0/0
+  3031 ;;		On exit  : 0/0
+  3032 ;;		Unchanged: 0/0
+  3033 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+  3034 ;;      Params:         2       0       0       0       0       0       0       0       0
+  3035 ;;      Locals:         2       0       0       0       0       0       0       0       0
+  3036 ;;      Temps:          1       0       0       0       0       0       0       0       0
+  3037 ;;      Totals:         5       0       0       0       0       0       0       0       0
+  3038 ;;Total ram usage:        5 bytes
+  3039 ;; Hardware stack levels used:    1
+  3040 ;; This function calls:
+  3041 ;;		Nothing
+  3042 ;; This function is called by:
+  3043 ;;		_high_isr
+  3044 ;; This function uses a non-reentrant model
+  3045 ;;
+  3046                           
+  3047                           	psect	text26
+  3048  000498                     __ptext26:
+  3049                           	opt stack 0
+  3050  000498                     _CyclicBitBuffer_read:
+  3051                           	opt stack 25
+  3052                           
+  3053                           ;CyclicBitBuffer.c: 37: int ret = (*readByteIndex) & readBitIndex;
+  3054                           
+  3055                           ;incstack = 0
+  3056  000498  C039  FFD9         	movff	_readByteIndex,fsr2l
+  3057  00049C  C03A  FFDA         	movff	_readByteIndex+1,fsr2h
+  3058  0004A0  50DF               	movf	indf2,w,c
+  3059  0004A2  1443               	andwf	_readBitIndex,w,c
+  3060  0004A4  6E03               	movwf	??_CyclicBitBuffer_read& (0+255),c
+  3061  0004A6  5003               	movf	??_CyclicBitBuffer_read,w,c
+  3062  0004A8  6E04               	movwf	CyclicBitBuffer_read@ret,c
+  3063  0004AA  6A05               	clrf	CyclicBitBuffer_read@ret+1,c
+  3064                           
+  3065                           ;CyclicBitBuffer.c: 39: if(0x01 == readBitIndex) {
+  3066  0004AC  0443               	decf	_readBitIndex,w,c
+  3067  0004AE  A4D8               	btfss	status,2,c
+  3068  0004B0  D005               	goto	i2l1157
+  3069                           
+  3070                           ;CyclicBitBuffer.c: 40: readBitIndex = 0x80;
+  3071  0004B2  0E80               	movlw	128
+  3072  0004B4  6E43               	movwf	_readBitIndex,c
+  3073                           
+  3074                           ;CyclicBitBuffer.c: 41: readByteIndex++;
+  3075  0004B6  4A39               	infsnz	_readByteIndex,f,c
+  3076  0004B8  2A3A               	incf	_readByteIndex+1,f,c
+  3077                           
+  3078                           ;CyclicBitBuffer.c: 42: } else {
+  3079  0004BA  D003               	goto	i2l133
+  3080  0004BC                     i2l1157:
+  3081                           
+  3082                           ;CyclicBitBuffer.c: 43: readBitIndex = readBitIndex >> 1;
+  3083  0004BC  90D8               	bcf	status,0,c
+  3084  0004BE  3043               	rrcf	_readBitIndex,w,c
+  3085  0004C0  6E43               	movwf	_readBitIndex,c
+  3086  0004C2                     i2l133:
+  3087                           
+  3088                           ;CyclicBitBuffer.c: 44: }
+  3089                           ;CyclicBitBuffer.c: 46: if(0 < ret) {
+  3090  0004C2  5005               	movf	CyclicBitBuffer_read@ret+1,w,c
+  3091  0004C4  0A80               	xorlw	128
+  3092  0004C6  0F80               	addlw	-128
+  3093  0004C8  0E01               	movlw	1
+  3094  0004CA  B4D8               	btfsc	status,2,c
+  3095  0004CC  5C04               	subwf	CyclicBitBuffer_read@ret,w,c
+  3096  0004CE  A0D8               	btfss	status,0,c
+  3097  0004D0  D005               	goto	i2l1165
+  3098                           
+  3099                           ;CyclicBitBuffer.c: 47: return 1;
+  3100  0004D2  0E00               	movlw	0
+  3101  0004D4  6E02               	movwf	?_CyclicBitBuffer_read+1,c
+  3102  0004D6  0E01               	movlw	1
+  3103  0004D8  6E01               	movwf	?_CyclicBitBuffer_read,c
+  3104  0004DA  0012               	return	
+  3105  0004DC                     i2l1165:
+  3106                           
+  3107                           ;CyclicBitBuffer.c: 49: return 0;
+  3108  0004DC  0E00               	movlw	0
+  3109  0004DE  6E02               	movwf	?_CyclicBitBuffer_read+1,c
+  3110  0004E0  0E00               	movlw	0
+  3111  0004E2  6E01               	movwf	?_CyclicBitBuffer_read,c
+  3112  0004E4  0012               	return	
+  3113  0004E6                     __end_of_CyclicBitBuffer_read:
+  3114                           	opt stack 0
+  3115                           pclatu	equ	0xFFB
+  3116                           pclath	equ	0xFFA
+  3117                           tblptru	equ	0xFF8
+  3118                           tblptrh	equ	0xFF7
+  3119                           tblptrl	equ	0xFF6
+  3120                           tablat	equ	0xFF5
+  3121                           prodh	equ	0xFF4
+  3122                           prodl	equ	0xFF3
+  3123                           intcon	equ	0xFF2
+  3124                           intcon2	equ	0xFF1
+  3125                           postinc0	equ	0xFEE
+  3126                           fsr0h	equ	0xFEA
+  3127                           fsr0l	equ	0xFE9
+  3128                           wreg	equ	0xFE8
+  3129                           postdec1	equ	0xFE5
+  3130                           fsr1h	equ	0xFE2
+  3131                           fsr1l	equ	0xFE1
+  3132                           indf2	equ	0xFDF
+  3133                           postinc2	equ	0xFDE
+  3134                           postdec2	equ	0xFDD
+  3135                           fsr2h	equ	0xFDA
+  3136                           fsr2l	equ	0xFD9
+  3137                           status	equ	0xFD8
+  3138                           pclatu	equ	0xFFB
+  3139                           pclath	equ	0xFFA
+  3140                           tblptru	equ	0xFF8
+  3141                           tblptrh	equ	0xFF7
+  3142                           tblptrl	equ	0xFF6
+  3143                           tablat	equ	0xFF5
+  3144                           prodh	equ	0xFF4
+  3145                           prodl	equ	0xFF3
+  3146                           intcon	equ	0xFF2
+  3147                           intcon2	equ	0xFF1
+  3148                           postinc0	equ	0xFEE
+  3149                           fsr0h	equ	0xFEA
+  3150                           fsr0l	equ	0xFE9
+  3151                           wreg	equ	0xFE8
+  3152                           postdec1	equ	0xFE5
+  3153                           fsr1h	equ	0xFE2
+  3154                           fsr1l	equ	0xFE1
+  3155                           indf2	equ	0xFDF
+  3156                           postinc2	equ	0xFDE
+  3157                           postdec2	equ	0xFDD
+  3158                           fsr2h	equ	0xFDA
+  3159                           fsr2l	equ	0xFD9
+  3160                           status	equ	0xFD8
+  3161                           
+  3162                           	psect	rparam
+  3163  0000                     pclatu	equ	0xFFB
+  3164                           pclath	equ	0xFFA
+  3165                           tblptru	equ	0xFF8
+  3166                           tblptrh	equ	0xFF7
+  3167                           tblptrl	equ	0xFF6
+  3168                           tablat	equ	0xFF5
+  3169                           prodh	equ	0xFF4
+  3170                           prodl	equ	0xFF3
+  3171                           intcon	equ	0xFF2
+  3172                           intcon2	equ	0xFF1
+  3173                           postinc0	equ	0xFEE
+  3174                           fsr0h	equ	0xFEA
+  3175                           fsr0l	equ	0xFE9
+  3176                           wreg	equ	0xFE8
+  3177                           postdec1	equ	0xFE5
+  3178                           fsr1h	equ	0xFE2
+  3179                           fsr1l	equ	0xFE1
+  3180                           indf2	equ	0xFDF
+  3181                           postinc2	equ	0xFDE
+  3182                           postdec2	equ	0xFDD
+  3183                           fsr2h	equ	0xFDA
+  3184                           fsr2l	equ	0xFD9
+  3185                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         1551
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     54      68
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    RF433_receive@bufferLength	PTR unsigned short  size(2) Largest target is 6
+		 -> main@frame(COMRAM[5]), 
+
+    writeByteIndex	PTR unsigned char  size(2) Largest target is 1537
+		 -> NULL(NULL[0]), CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    readByteIndex	PTR unsigned char  size(2) Largest target is 1537
+		 -> NULL(NULL[0]), CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    Serial_sendFrame@p	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    Serial_sendFrame@frame.content	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    Serial_sendFrame@frame	PTR const struct serial_frame size(2) Largest target is 6
+		 -> main@frame(COMRAM[5]), 
+
+    Serial_readFrame@p	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    Serial_readFrame@frame.content	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    Serial_readFrame@frame	PTR struct serial_frame size(2) Largest target is 6
+		 -> main@frame(COMRAM[5]), 
+
+    sp__RF433_receive	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    sp__CyclicBitBuffer_getBuffer	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    S26serial_frame$content	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+    frame.content	PTR unsigned char  size(2) Largest target is 1537
+		 -> CyclicBitBuffer_buffer(BIGRAM[1537]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_Serial_readFrame
+    _main->_Serial_sendFrame
+    _configTimer->_OpenTimer0
+    _Serial_sendFrame->_Write1USART
+    _Serial_readFrame->_Read1USART
+    _Serial_configSerialPort->_Open1USART
+    _RF433_transmit->_Delay100TCYx
+    _RF433_transmit->_Delay1KTCYx
+    _RF433_receive->_CyclicBitBuffer_getBuffer
+    _RF433_init->_Delay100TCYx
+    _RF433_init->_Delay1KTCYx
+
+Critical Paths under _high_isr in COMRAM
+
+    _high_isr->_CyclicBitBuffer_read
+
+Critical Paths under _low_isr in COMRAM
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _high_isr in BANK0
+
+    None.
+
+Critical Paths under _low_isr in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _high_isr in BANK1
+
+    None.
+
+Critical Paths under _low_isr in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _high_isr in BANK2
+
+    None.
+
+Critical Paths under _low_isr in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _high_isr in BANK3
+
+    None.
+
+Critical Paths under _low_isr in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _high_isr in BANK4
+
+    None.
+
+Critical Paths under _low_isr in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _high_isr in BANK5
+
+    None.
+
+Critical Paths under _low_isr in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _high_isr in BANK6
+
+    None.
+
+Critical Paths under _low_isr in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _high_isr in BANK7
+
+    None.
+
+Critical Paths under _low_isr in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                12     7      5    1136
+                                             42 COMRAM    12     7      5
+         _CyclicBitBuffer_clearEvent
+          _CyclicBitBuffer_getBuffer
+              _CyclicBitBuffer_reset
+                         _RF433_init
+                      _RF433_receive
+                     _RF433_transmit
+            _Serial_configSerialPort
+                   _Serial_readFrame
+                   _Serial_sendFrame
+                        _configClock
+            _configInterruptPriority
+                        _configPorts
+                        _configTimer
+ ---------------------------------------------------------------------------------
+ (1) _configTimer                                          0     0      0      30
+                         _OpenTimer0
+ ---------------------------------------------------------------------------------
+ (2) _OpenTimer0                                           1     1      0      30
+                                             33 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _configPorts                                          0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _configInterruptPriority                              0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _configClock                                          0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _Serial_sendFrame                                     8     6      2     332
+                                             34 COMRAM     8     6      2
+                        _Write1USART
+ ---------------------------------------------------------------------------------
+ (2) _Write1USART                                          1     1      0      15
+                                             33 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _Serial_readFrame                                     8     6      2     233
+                                             34 COMRAM     8     6      2
+                         _Read1USART
+ ---------------------------------------------------------------------------------
+ (2) _Read1USART                                           1     1      0      15
+                                             33 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _Serial_configSerialPort                              0     0      0     203
+                         _Open1USART
+ ---------------------------------------------------------------------------------
+ (2) _Open1USART                                           6     4      2     203
+                                             33 COMRAM     6     4      2
+ ---------------------------------------------------------------------------------
+ (1) _RF433_transmit                                       0     0      0      30
+          _CyclicBitBuffer_resetRead
+                       _Delay100TCYx
+                        _Delay1KTCYx
+ ---------------------------------------------------------------------------------
+ (1) _RF433_receive                                        2     0      2      68
+                                             35 COMRAM     2     0      2
+          _CyclicBitBuffer_getBuffer
+              _CyclicBitBuffer_reset
+ ---------------------------------------------------------------------------------
+ (2) _CyclicBitBuffer_reset                                0     0      0       0
+          _CyclicBitBuffer_resetRead
+         _CyclicBitBuffer_resetWrite
+ ---------------------------------------------------------------------------------
+ (3) _CyclicBitBuffer_resetWrite                           0     0      0       0
+ ---------------------------------------------------------------------------------
+ (2) _CyclicBitBuffer_resetRead                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ (2) _CyclicBitBuffer_getBuffer                            2     0      2       0
+                                             33 COMRAM     2     0      2
+ ---------------------------------------------------------------------------------
+ (1) _RF433_init                                           0     0      0      30
+                       _Delay100TCYx
+                        _Delay1KTCYx
+ ---------------------------------------------------------------------------------
+ (2) _Delay1KTCYx                                          1     1      0      15
+                                             33 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (2) _Delay100TCYx                                         1     1      0      15
+                                             33 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _CyclicBitBuffer_clearEvent                           0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (4) _high_isr                                            14    14      0     181
+                                              5 COMRAM    14    14      0
+               _CyclicBitBuffer_read
+              _CyclicBitBuffer_write
+                        _WriteTimer0
+        i2_CyclicBitBuffer_resetRead
+ ---------------------------------------------------------------------------------
+ (5) i2_CyclicBitBuffer_resetRead                          0     0      0       0
+ ---------------------------------------------------------------------------------
+ (5) _WriteTimer0                                          4     2      2      98
+                                              0 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ (5) _CyclicBitBuffer_write                                3     1      2      68
+                                              0 COMRAM     3     1      2
+ ---------------------------------------------------------------------------------
+ (5) _CyclicBitBuffer_read                                 5     3      2      15
+                                              0 COMRAM     5     3      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (4) _low_isr                                             14    14      0       0
+                                             19 COMRAM    14    14      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 4
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _CyclicBitBuffer_clearEvent
+   _CyclicBitBuffer_getBuffer
+   _CyclicBitBuffer_reset
+     _CyclicBitBuffer_resetRead
+     _CyclicBitBuffer_resetWrite
+   _RF433_init
+     _Delay100TCYx
+     _Delay1KTCYx
+   _RF433_receive
+     _CyclicBitBuffer_getBuffer
+     _CyclicBitBuffer_reset
+       _CyclicBitBuffer_resetRead
+       _CyclicBitBuffer_resetWrite
+   _RF433_transmit
+     _CyclicBitBuffer_resetRead
+     _Delay100TCYx
+     _Delay1KTCYx
+   _Serial_configSerialPort
+     _Open1USART
+   _Serial_readFrame
+     _Read1USART
+   _Serial_sendFrame
+     _Write1USART
+   _configClock
+   _configInterruptPriority
+   _configPorts
+   _configTimer
+     _OpenTimer0
+
+ _high_isr (ROOT)
+   _CyclicBitBuffer_read
+   _CyclicBitBuffer_write
+   _WriteTimer0
+   i2_CyclicBitBuffer_resetRead
+
+ _low_isr (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0     601      21       75.1%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5F      0       0       0        0.0%
+COMRAM              5F     36      44       1       71.6%
+BITSFR_1             0      0       0      40        0.0%
+SFR_1                0      0       0      40        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      44       6        0.0%
+DATA                 0      0     645       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.32 build 58300 
+Symbol Table                                                                                   Sat Nov 15 17:16:39 2014
+
+                                  l70 01E4                                    l73 0232  
+                                  l90 03AC                                    l67 01D2  
+                                  l84 0390                                    l93 03D0  
+                                  l78 026E                                    l87 039A  
+                                  l98 0404     __end_of_CyclicBitBuffer_resetRead 06BC  
+                        __CFG_CP0$OFF 000000                          __CFG_CP1$OFF 000000  
+                         __CFG_LVP$ON 000000                                   l171 056C  
+                                 l308 062E                                   l165 0542  
+                                 l262 05FA                                   l263 05FC  
+                                 l291 0462                                   l295 0474  
+                                 l297 047E                                   l298 0480  
+                                 l556 0674                                   l549 0684  
+                                 l963 0464                                   l955 0456  
+                                 l975 0476                          __CFG_CPB$OFF 000000  
+                        __CFG_CPD$OFF 000000                                   u487 0676  
+                                 u497 0686                  __size_of_WriteTimer0 0012  
+                                 wreg 000FE8                            _TXSTA1bits 000FAC  
+                                l1007 064A                                  l1211 02F0  
+                                l1061 01AA                                  l1205 02E4  
+                                l1223 0336                                  l1129 041E  
+                                l1233 035C                                  l1087 0288  
+                                l1239 0376                        Read1USART@data 0022  
+                                _main 02B2                                  fsr0h 000FEA  
+                                fsr1h 000FE2                                  fsr0l 000FE9  
+                                fsr2h 000FDA                                  fsr1l 000FE1  
+                                indf2 000FDF                                  fsr2l 000FD9  
+                       __CFG_BORV$190 000000                                  pclat 000FFA  
+                                prodh 000FF4                                  prodl 000FF3  
+                                start 0198                         __CFG_IESO$OFF 000000  
+                       __CFG_FOSC$HSM 000000                         __CFG_MCLRE$ON 000000  
+ __size_of_CyclicBitBuffer_resetWrite 000E  __size_ofi2_CyclicBitBuffer_resetRead 000E  
+                 __size_of_RF433_init 002C                           _Delay1KTCYx 0672  
+                               ?_main 002B                 __size_of_Delay100TCYx 0010  
+              ??_CyclicBitBuffer_read 0003                                 _T0CON 000FD5  
+                               i2l202 009C                                 i2l211 00DE  
+                               i2l212 00EC                                 i2l133 04C2  
+                               _TMR0H 000FD7                                 _TMR0L 000FD6  
+                       __CFG_WRT0$OFF 000000                         __CFG_WRT1$OFF 000000  
+                      __CFG_EBTR0$OFF 000000                        __CFG_FCMEN$OFF 000000  
+                      __CFG_EBTR1$OFF 000000                     ?_Serial_readFrame 0023  
+                       __CFG_WRTB$OFF 000000                         __CFG_WRTC$OFF 000000  
+                       __CFG_WRTD$OFF 000000                        __CFG_EBTRB$OFF 000000  
+                               _count 0037                    ??_Serial_readFrame 0025  
+                          _Read1USART 0620                                 main@x 0030  
+                     __end_of_low_isr 0198                                 tablat 000FF5  
+                   ?_Serial_sendFrame 0023                                 status 000FD8  
+                      __CFG_T3CMX$RC0 000000                    ??_Serial_sendFrame 0025  
+                     __initialization 05BA               _configInterruptPriority 06CA  
+                        _Delay100TCYx 0682                          __end_of_main 0390  
+                          _Open1USART 0440           ??_CyclicBitBuffer_getBuffer 0024  
+                              ??_main 0030                         __activetblptr 000000  
+                      __CFG_SDOMX$RC7 000000                       __CFG_CCP2MX$RC1 000000  
+             ??_CyclicBitBuffer_reset 0022                                i2l1165 04DC  
+                              i2l1157 04BC                                i2l1181 0528  
+                              i2l1173 04FC                                i2l1261 008C  
+                              i2l1175 0518                                i2l1265 0096  
+                              i2l1281 00EA                            _OpenTimer0 05E0  
+                      __CFG_WDTEN$OFF 000000               ??_CyclicBitBuffer_write 0003  
+                              _RCREG1 000FAE                                _RCSTA1 000FAB  
+                              _SPBRG1 000FAF                                _TXREG1 000FAD  
+                              _TXSTA1 000FAC                        __CFG_XINST$OFF 000000  
+                __size_of_configClock 0004                      __end_of_high_isr 0126  
+                __size_of_configTimer 000E                  __size_of_configPorts 0020  
+                      __CFG_STVREN$ON 000000                      OpenTimer0@config 0022  
+         ??_CyclicBitBuffer_resetRead 0022                                clear_0 05C2  
+                              clear_1 05D4                             ??_low_isr 0014  
+                              tblptrh 000FF7                                tblptrl 000FF6  
+                              tblptru 000FF8              ?_Serial_configSerialPort 0001  
+                        ??_RF433_init 0023                           ?_Read1USART 0001  
+                __CFG_LS48MHZ$SYS48X8 000000             _CyclicBitBuffer_getBuffer 06DE  
+                       _readByteIndex 0039                            __accesstop 0060  
+             __end_of__initialization 05DA                       __CFG_PBADEN$OFF 000000  
+           ??_configInterruptPriority 0022                        __pcstackCOMRAM 0001  
+                    __CFG_nPWRTEN$OFF 000000                 __end_of_RF433_receive 058E  
+                         ?_Open1USART 0022                    __end_of_RF433_init 05BA  
+                     __CFG_PCLKEN$OFF 000000          ??_CyclicBitBuffer_clearEvent 0022  
+               Serial_readFrame@frame 0023               __size_of_RF433_transmit 0032  
+        ?i2_CyclicBitBuffer_resetRead 0001             _CyclicBitBuffer_resetRead 06AE  
+                         ?_OpenTimer0 0001                         ??_Write1USART 0022  
+                       _writeBitIndex 0044                     __CFG_PLLSEL$PLL4X 000000  
+                        ?_Delay1KTCYx 0001                      WriteTimer0@timer 0003  
+                       ??_WriteTimer0 0003                   __size_of_Read1USART 001E  
+     __end_of_Serial_configSerialPort 0672       __end_of_configInterruptPriority 06D4  
+                    Open1USART@config 0027                               _SPBRGH1 000FB0  
+                           ?_high_isr 0001                      __CFG_CFGPLLEN$ON 000000  
+       ??i2_CyclicBitBuffer_resetRead 0001                   __size_of_Open1USART 0058  
+                             __Hparam 0000             __size_of_Serial_readFrame 0116  
+                             __Lparam 0000                   __end_of_Write1USART 0650  
+                             __pcinit 05BA             __size_of_Serial_sendFrame 00B0  
+                             __ramtop 0800                   __size_of_OpenTimer0 0020  
+                             __ptext0 02B2                               __ptext1 0692  
+                             __ptext2 05E0                               __ptext3 0600  
+                             __ptext4 06CA                               __ptext5 06EE  
+                             __ptext6 0390                               __ptext7 063E  
+                             __ptext8 019C                               __ptext9 0620  
+                           _T0CONbits 000FD5         __size_of_CyclicBitBuffer_read 004E  
+        ??_CyclicBitBuffer_resetWrite 0022                   __end_of_WriteTimer0 0662  
+                             _low_isr 0126                            ??_high_isr 0006  
+                end_of_initialization 05DA        __size_of_CyclicBitBuffer_reset 000A  
+       __end_of_CyclicBitBuffer_reset 06DE        __size_of_CyclicBitBuffer_write 004A  
+       __end_of_CyclicBitBuffer_write 0530                 Serial_sendFrame@frame 0023  
+  __size_of_CyclicBitBuffer_getBuffer 000A                CyclicBitBuffer_write@b 0001  
+                             postdec1 000FE5                               postdec2 000FDD  
+                             postinc0 000FEE                               postinc2 000FDE  
+                           _PORTBbits 000F81    __end_of_CyclicBitBuffer_clearEvent 06EE  
+          _CyclicBitBuffer_clearEvent 06E8                             _TRISBbits 000F93  
+                      _RF433_transmit 0530                          ??_Read1USART 0022  
+                         _CM1CON0bits 000F98                           _Write1USART 063E  
+                       ??_configClock 0022                         ??_configTimer 0023  
+                       ??_configPorts 0022      __size_of_Serial_configSerialPort 0010  
+  __size_of_CyclicBitBuffer_resetRead 000E                      Delay100TCYx@unit 0022  
+                        ??_Open1USART 0024                           _WriteTimer0 0650  
+                  __end_of_Read1USART 063E                  __size_of_Delay1KTCYx 0010  
+                 start_initialization 05BA                __end_of_RF433_transmit 0562  
+                        ??_OpenTimer0 0022                _CyclicBitBuffer_buffer 01FF  
+                     __CFG_nLPBOR$OFF 000000                    __end_of_Open1USART 0498  
+                    _Serial_readFrame 019C                          _readBitIndex 0043  
+                 __end_of_configClock 06F2                   __end_of_configTimer 06A0  
+                 __end_of_configPorts 0620                      _Serial_sendFrame 0390  
+                  __end_of_OpenTimer0 0600    __end_of_CyclicBitBuffer_resetWrite 06AE  
+          _CyclicBitBuffer_resetWrite 06A0                           __pbssBIGRAM 01FF  
+                         __pbssCOMRAM 0037                       ?_RF433_transmit 0001  
+              __size_of_RF433_receive 002C                       Delay1KTCYx@unit 0022  
+            ?_configInterruptPriority 0001                     __size_of_high_isr 011E  
+                       ?_Delay100TCYx 0001                             __pintcode 0008  
+                     Open1USART@spbrg 0022                     WriteTimer0@timer0 0001  
+                      _writeByteIndex 003D                              ?_low_isr 0001  
+                   Serial_readFrame@i 0027                     Serial_readFrame@p 0029  
+                     Write1USART@data 0022                              _LATBbits 000F8A  
+             _Serial_configSerialPort 0662                           _configClock 06EE  
+                            _PIE1bits 000F9D          __end_of_CyclicBitBuffer_read 04E6  
+                         _configTimer 0692                           _configPorts 0600  
+                      ??_Delay100TCYx 0022                              _PIR1bits 000F9E  
+                            _RCONbits 000FD0                      __CFG_WDTPS$32768 000000  
+           RF433_receive@bufferLength 0024                         _RF433_receive 0562  
+                          _ADCON0bits 000FC2           ?_CyclicBitBuffer_clearEvent 0001  
+                           main@frame 0032   __end_ofi2_CyclicBitBuffer_resetRead 06CA  
+         i2_CyclicBitBuffer_resetRead 06BC                           _INTCON2bits 000FF1  
+                   Serial_sendFrame@i 0027                     Serial_sendFrame@p 0029  
+                        ?_Write1USART 0001                 _CyclicBitBuffer_flags 003F  
+               _CyclicBitBuffer_reset 06D4                              __Hrparam 0000  
+               _CyclicBitBuffer_write 04E6                              __Lrparam 0000  
+                  __CFG_BOREN$SBORDIS 000000                        ?_RF433_receive 0024  
+                        ?_WriteTimer0 0001                            _ANSELBbits 000F5C  
+                          _ANSELCbits 000F5D              __end_of_Serial_readFrame 02B2  
+                    __size_of_low_isr 0072                              __ptext10 0662  
+                            __ptext11 0440                              __ptext20 0682  
+                            __ptext12 0530                              __ptext21 06E8  
+                            __ptext13 0562                              __ptext14 06D4  
+                            __ptext23 06BC                              __ptext15 06A0  
+                            __ptext24 0650                              __ptext16 06AE  
+                            __ptext25 04E6                              __ptext17 06DE  
+                            __ptext26 0498                              __ptext18 058E  
+                            __ptext19 0672                              _high_isr 0008  
+                          _RF433_init 058E             ??_Serial_configSerialPort 0028  
+            __end_of_Serial_sendFrame 0440                         __size_of_main 00DE  
+                            _oneCount 0041                              _pinValue 0042  
+                            _sendTime 003B                         ??_Delay1KTCYx 0022  
+                            main@argc 002B                              main@argv 002D  
+          ?_CyclicBitBuffer_getBuffer 0022                      ??_RF433_transmit 0023  
+                       _USART1_Status 0040           ?_CyclicBitBuffer_resetWrite 0001  
+                          _INTCONbits 000FF2                  _CyclicBitBuffer_read 0498  
+                __end_of_Delay100TCYx 0692               CyclicBitBuffer_read@ret 0004  
+                            intlevel2 0000                ?_CyclicBitBuffer_reset 0001  
+                          _RCSTA1bits 000FAB                ?_CyclicBitBuffer_write 0001  
+                          _OSCCONbits 000FD3   __size_of_CyclicBitBuffer_clearEvent 0006  
+                     ??_RF433_receive 0026      __size_of_configInterruptPriority 000A  
+                __CFG_CPUDIV$NOCLKDIV 000000            ?_CyclicBitBuffer_resetRead 0001  
+   __end_of_CyclicBitBuffer_getBuffer 06E8                 ?_CyclicBitBuffer_read 0001  
+                 __end_of_Delay1KTCYx 0682                           ?_RF433_init 0001  
+                        ?_configClock 0001                          ?_configTimer 0001  
+                        ?_configPorts 0001                  __size_of_Write1USART 0012  

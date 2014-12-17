@@ -1,0 +1,87 @@
+
+# 1 "CyclicBitBuffer.c"
+
+# 15 "CyclicBitBuffer.h"
+typedef struct cyclicbitbufferflags {
+unsigned int hasEvent : 1;
+unsigned int record: 1;
+unsigned int recordOver: 1;
+unsigned int transmit: 1;
+unsigned int event: 1;
+}CYCLICBITBUFFERFLAGS;
+
+CYCLICBITBUFFERFLAGS CyclicBitBuffer_flags;
+
+# 33
+unsigned char * CyclicBitBuffer_getBuffer(void);
+void CyclicBitBuffer_reset(void);
+void CyclicBitBuffer_resetRead(void);
+void CyclicBitBuffer_resetWrite(void);
+void CyclicBitBuffer_clearEvent(void);
+int CyclicBitBuffer_read();
+void CyclicBitBuffer_write(int b);
+
+# 3 "CyclicBitBuffer.c"
+unsigned char writeBitIndex;
+unsigned char * writeByteIndex;
+
+unsigned char readBitIndex;
+unsigned char * readByteIndex;
+
+unsigned char CyclicBitBuffer_buffer[((unsigned short)1537) ];
+
+
+unsigned char * CyclicBitBuffer_getBuffer(void) {
+return CyclicBitBuffer_buffer;
+}
+
+void CyclicBitBuffer_resetRead(void) {
+readBitIndex = 1;
+readByteIndex = CyclicBitBuffer_buffer;
+}
+
+void CyclicBitBuffer_resetWrite(void) {
+writeBitIndex = 1;
+writeByteIndex = CyclicBitBuffer_buffer;
+}
+
+void CyclicBitBuffer_reset(void) {
+CyclicBitBuffer_resetRead();
+CyclicBitBuffer_resetWrite();
+}
+
+void CyclicBitBuffer_clearEvent(void) {
+CyclicBitBuffer_flags.event = 0;
+CyclicBitBuffer_flags.hasEvent = 0;
+}
+
+int CyclicBitBuffer_read() {
+int ret = (*readByteIndex) & readBitIndex;
+
+if(0x01 == readBitIndex) {
+readBitIndex = 0x80;
+readByteIndex++;
+} else {
+readBitIndex = readBitIndex >> 1;
+}
+
+if(0 < ret) {
+return 1;
+} else {
+return 0;
+}
+}
+
+void CyclicBitBuffer_write(int b) {
+if(b) {
+(*writeByteIndex) |= writeBitIndex;
+} else {
+(*writeByteIndex) = (*writeByteIndex) & (writeBitIndex ^ 0xff);
+}
+if(0x01 == writeBitIndex) {
+writeBitIndex = 0x80;
+writeByteIndex++;
+} else {
+writeBitIndex = writeBitIndex >> 1;
+}
+}

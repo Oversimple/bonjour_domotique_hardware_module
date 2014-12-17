@@ -1,0 +1,5 @@
+ build/default/debug/serial.d  \
+ build/default/debug/serial.p1:  \
+ serial.c  \
+Constants.h  \
+serial.h 

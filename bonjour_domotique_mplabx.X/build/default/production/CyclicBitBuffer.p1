@@ -1,0 +1,227 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"15 CyclicBitBuffer.h
+[s S1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1 cyclicbitbufferflags hasEvent record recordOver transmit event ]
+[; ;CyclicBitBuffer.h: 15: typedef struct cyclicbitbufferflags {
+[; ;CyclicBitBuffer.h: 16: unsigned int hasEvent : 1;
+[; ;CyclicBitBuffer.h: 17: unsigned int record: 1;
+[; ;CyclicBitBuffer.h: 18: unsigned int recordOver: 1;
+[; ;CyclicBitBuffer.h: 19: unsigned int transmit: 1;
+[; ;CyclicBitBuffer.h: 20: unsigned int event: 1;
+[; ;CyclicBitBuffer.h: 21: }CYCLICBITBUFFERFLAGS;
+"23 CyclicBitBuffer.h
+[v _CyclicBitBuffer_flags `S1 ~T0 @X0 1 e ]
+[; ;CyclicBitBuffer.h: 23: CYCLICBITBUFFERFLAGS CyclicBitBuffer_flags;
+[; ;CyclicBitBuffer.h: 33: unsigned char * CyclicBitBuffer_getBuffer(void);
+[; ;CyclicBitBuffer.h: 34: void CyclicBitBuffer_reset(void);
+[; ;CyclicBitBuffer.h: 35: void CyclicBitBuffer_resetRead(void);
+[; ;CyclicBitBuffer.h: 36: void CyclicBitBuffer_resetWrite(void);
+[; ;CyclicBitBuffer.h: 37: void CyclicBitBuffer_clearEvent(void);
+[; ;CyclicBitBuffer.h: 38: int CyclicBitBuffer_read();
+[; ;CyclicBitBuffer.h: 39: void CyclicBitBuffer_write(int b);
+"3 CyclicBitBuffer.c
+[v _writeBitIndex `uc ~T0 @X0 1 e ]
+[; ;CyclicBitBuffer.c: 3: unsigned char writeBitIndex;
+"4
+[v _writeByteIndex `*uc ~T0 @X0 1 e ]
+[; ;CyclicBitBuffer.c: 4: unsigned char * writeByteIndex;
+"6
+[v _readBitIndex `uc ~T0 @X0 1 e ]
+[; ;CyclicBitBuffer.c: 6: unsigned char readBitIndex;
+"7
+[v _readByteIndex `*uc ~T0 @X0 1 e ]
+[; ;CyclicBitBuffer.c: 7: unsigned char * readByteIndex;
+"9
+[v _CyclicBitBuffer_buffer `uc ~T0 @X0 -> -> -> 1537 `i `us `ux e ]
+[; ;CyclicBitBuffer.c: 9: unsigned char CyclicBitBuffer_buffer[((unsigned short)1537) ];
+"12
+[v _CyclicBitBuffer_getBuffer `(*uc ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 12: unsigned char * CyclicBitBuffer_getBuffer(void) {
+[e :U _CyclicBitBuffer_getBuffer ]
+[f ]
+[; ;CyclicBitBuffer.c: 13: return CyclicBitBuffer_buffer;
+"13
+[e ) &U _CyclicBitBuffer_buffer ]
+[e $UE 2  ]
+[; ;CyclicBitBuffer.c: 14: }
+"14
+[e :UE 2 ]
+}
+"16
+[v _CyclicBitBuffer_resetRead `(v ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 16: void CyclicBitBuffer_resetRead(void) {
+[e :U _CyclicBitBuffer_resetRead ]
+[f ]
+[; ;CyclicBitBuffer.c: 17: readBitIndex = 1;
+"17
+[e = _readBitIndex -> -> 1 `i `uc ]
+[; ;CyclicBitBuffer.c: 18: readByteIndex = CyclicBitBuffer_buffer;
+"18
+[e = _readByteIndex &U _CyclicBitBuffer_buffer ]
+[; ;CyclicBitBuffer.c: 19: }
+"19
+[e :UE 3 ]
+}
+"21
+[v _CyclicBitBuffer_resetWrite `(v ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 21: void CyclicBitBuffer_resetWrite(void) {
+[e :U _CyclicBitBuffer_resetWrite ]
+[f ]
+[; ;CyclicBitBuffer.c: 22: writeBitIndex = 1;
+"22
+[e = _writeBitIndex -> -> 1 `i `uc ]
+[; ;CyclicBitBuffer.c: 23: writeByteIndex = CyclicBitBuffer_buffer;
+"23
+[e = _writeByteIndex &U _CyclicBitBuffer_buffer ]
+[; ;CyclicBitBuffer.c: 24: }
+"24
+[e :UE 4 ]
+}
+"26
+[v _CyclicBitBuffer_reset `(v ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 26: void CyclicBitBuffer_reset(void) {
+[e :U _CyclicBitBuffer_reset ]
+[f ]
+[; ;CyclicBitBuffer.c: 27: CyclicBitBuffer_resetRead();
+"27
+[e ( _CyclicBitBuffer_resetRead ..  ]
+[; ;CyclicBitBuffer.c: 28: CyclicBitBuffer_resetWrite();
+"28
+[e ( _CyclicBitBuffer_resetWrite ..  ]
+[; ;CyclicBitBuffer.c: 29: }
+"29
+[e :UE 5 ]
+}
+"31
+[v _CyclicBitBuffer_clearEvent `(v ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 31: void CyclicBitBuffer_clearEvent(void) {
+[e :U _CyclicBitBuffer_clearEvent ]
+[f ]
+[; ;CyclicBitBuffer.c: 32: CyclicBitBuffer_flags.event = 0;
+"32
+[e = . _CyclicBitBuffer_flags 4 -> -> 0 `i `uc ]
+[; ;CyclicBitBuffer.c: 33: CyclicBitBuffer_flags.hasEvent = 0;
+"33
+[e = . _CyclicBitBuffer_flags 0 -> -> 0 `i `uc ]
+[; ;CyclicBitBuffer.c: 34: }
+"34
+[e :UE 6 ]
+}
+"36
+[v _CyclicBitBuffer_read `(i ~T0 @X0 1 ef ]
+{
+[; ;CyclicBitBuffer.c: 36: int CyclicBitBuffer_read() {
+[e :U _CyclicBitBuffer_read ]
+[f ]
+"37
+[v _ret `i ~T0 @X0 1 a ]
+[; ;CyclicBitBuffer.c: 37: int ret = (*readByteIndex) & readBitIndex;
+[e = _ret & -> *U _readByteIndex `i -> _readBitIndex `i ]
+[; ;CyclicBitBuffer.c: 39: if(0x01 == readBitIndex) {
+"39
+[e $ ! == -> 1 `i -> _readBitIndex `i 8  ]
+{
+[; ;CyclicBitBuffer.c: 40: readBitIndex = 0x80;
+"40
+[e = _readBitIndex -> -> 128 `i `uc ]
+[; ;CyclicBitBuffer.c: 41: readByteIndex++;
+"41
+[e ++ _readByteIndex * -> -> 1 `i `x -> -> # *U _readByteIndex `i `x ]
+"42
+}
+[; ;CyclicBitBuffer.c: 42: } else {
+[e $U 9  ]
+[e :U 8 ]
+{
+[; ;CyclicBitBuffer.c: 43: readBitIndex = readBitIndex >> 1;
+"43
+[e = _readBitIndex -> >> -> _readBitIndex `i -> 1 `i `uc ]
+"44
+}
+[e :U 9 ]
+[; ;CyclicBitBuffer.c: 44: }
+[; ;CyclicBitBuffer.c: 46: if(0 < ret) {
+"46
+[e $ ! < -> 0 `i _ret 10  ]
+{
+[; ;CyclicBitBuffer.c: 47: return 1;
+"47
+[e ) -> 1 `i ]
+[e $UE 7  ]
+"48
+}
+[; ;CyclicBitBuffer.c: 48: } else {
+[e $U 11  ]
+[e :U 10 ]
+{
+[; ;CyclicBitBuffer.c: 49: return 0;
+"49
+[e ) -> 0 `i ]
+[e $UE 7  ]
+"50
+}
+[e :U 11 ]
+[; ;CyclicBitBuffer.c: 50: }
+[; ;CyclicBitBuffer.c: 51: }
+"51
+[e :UE 7 ]
+}
+"53
+[v _CyclicBitBuffer_write `(v ~T0 @X0 1 ef1`i ]
+{
+[; ;CyclicBitBuffer.c: 53: void CyclicBitBuffer_write(int b) {
+[e :U _CyclicBitBuffer_write ]
+[v _b `i ~T0 @X0 1 r1 ]
+[f ]
+[; ;CyclicBitBuffer.c: 54: if(b) {
+"54
+[e $ ! != _b -> 0 `i 13  ]
+{
+[; ;CyclicBitBuffer.c: 55: (*writeByteIndex) |= writeBitIndex;
+"55
+[e =| *U _writeByteIndex _writeBitIndex ]
+"56
+}
+[; ;CyclicBitBuffer.c: 56: } else {
+[e $U 14  ]
+[e :U 13 ]
+{
+[; ;CyclicBitBuffer.c: 57: (*writeByteIndex) = (*writeByteIndex) & (writeBitIndex ^ 0xff);
+"57
+[e = *U _writeByteIndex -> & -> *U _writeByteIndex `i ^ -> _writeBitIndex `i -> 255 `i `uc ]
+"58
+}
+[e :U 14 ]
+[; ;CyclicBitBuffer.c: 58: }
+[; ;CyclicBitBuffer.c: 59: if(0x01 == writeBitIndex) {
+"59
+[e $ ! == -> 1 `i -> _writeBitIndex `i 15  ]
+{
+[; ;CyclicBitBuffer.c: 60: writeBitIndex = 0x80;
+"60
+[e = _writeBitIndex -> -> 128 `i `uc ]
+[; ;CyclicBitBuffer.c: 61: writeByteIndex++;
+"61
+[e ++ _writeByteIndex * -> -> 1 `i `x -> -> # *U _writeByteIndex `i `x ]
+"62
+}
+[; ;CyclicBitBuffer.c: 62: } else {
+[e $U 16  ]
+[e :U 15 ]
+{
+[; ;CyclicBitBuffer.c: 63: writeBitIndex = writeBitIndex >> 1;
+"63
+[e = _writeBitIndex -> >> -> _writeBitIndex `i -> 1 `i `uc ]
+"64
+}
+[e :U 16 ]
+[; ;CyclicBitBuffer.c: 64: }
+[; ;CyclicBitBuffer.c: 65: }
+"65
+[e :UE 12 ]
+}
