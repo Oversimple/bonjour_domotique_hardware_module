@@ -1,4 +1,4 @@
 bonjour_domotique_hardware_module
 =================================
 
-The MPLABX project for bonjour domotique
+The eagle project for bonjour domotique
